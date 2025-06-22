@@ -44,9 +44,6 @@ function MyDiff()
 endfunction
 
 
-set columns=155
-set lines=90
-set textwidth=100000
 set number
 set numberwidth=6
 
