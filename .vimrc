@@ -1,48 +1,39 @@
-" Vim with all enhancements
-source $VIMRUNTIME/vimrc_example.vim
+" Plujackguo380/vim-lsp-cxx-highlightgins
+call plug#begin()
 
+Plug 'scrooloose/nerdtree'	, { 'on' : 'NERDTreeToggle' }
+Plug 'neoclide/coc.nvim'	, { 'branch' : 'release'}
+Plug 'jackguo380/vim-lsp-cxx-highlight'
+Plug 'joshdick/onedark.vim'
+Plug 'vim-airline/vim-airline'
+" git
+Plug 'tpope/vim-fugitive'
+
+call plug#end()
+
+
+" clang
+let g:ycm_clangd_uses_ycmd_caching = 0
+let g:ycm_clangd_binary_path = exepath("clangd")
+
+" airline
+let g:airline_powerline_fonts=1
+set encoding=utf-8
+set termencoding=utf-8
+let g:airline_filetype_overrides = {
+	\ 'fugitive': ['fugitive', '%{airline#util#wrap(airline#extensions#branch#get_head(),80)}']
+\}
+
+
+
+
+
+
+source $VIMRUNTIME/vimrc_example.vim
 set guifont=Consolas:h8
 "set nowrap
 
-" Use the internal diff if available.
-" Otherwise use the special 'diffexpr' for Windows.
-if &diffopt !~# 'internal'
-  set diffexpr=MyDiff()
-endif
-function MyDiff()
-  let opt = '-a --binary '
-  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-  let arg1 = v:fname_in
-  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
-  let arg1 = substitute(arg1, '!', '\!', 'g')
-  let arg2 = v:fname_new
-  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
-  let arg2 = substitute(arg2, '!', '\!', 'g')
-  let arg3 = v:fname_out
-  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
-  let arg3 = substitute(arg3, '!', '\!', 'g')
-  if $VIMRUNTIME =~ ' '
-	if &sh =~ '\<cmd'
-	  if empty(&shellxquote)
-		let l:shxq_sav = ''
-		set shellxquote&
-	  endif
-	  let cmd = '"' . $VIMRUNTIME . '\diff"'
-	else
-	  let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
-	endif
-  else
-	let cmd = $VIMRUNTIME . '\diff'
-  endif
-  let cmd = substitute(cmd, '!', '\!', 'g')
-  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3
-  if exists('l:shxq_sav')
-	let &shellxquote=l:shxq_sav
-  endif
-  set textwidth=100000
-endfunction
-
+ 
 
 set number
 set numberwidth=6
@@ -50,6 +41,21 @@ set numberwidth=6
 set t_Co=256
 syntax on
 colorscheme slate
+colorscheme onedark
+"Use 24-bit (tru-color) mode in Vim/Neovim outside tmux
+"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux 24-bit color support
+"(see < https://sunaku.github.io./tmux-24bit-color.html#usage > for more information)
+if (empty($TMUX))
+	if (has("nvim"))
+		let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+	endif
+	if (has("termguicolors"))
+		set termguicolors
+	endif
+endif
+set term=xterm-256color
+
+
 set wildmenu
 set backspace=indent,eol,start
 set number
@@ -64,9 +70,7 @@ set autoindent " ai - включить автоотступы (копирует�
 "set cindent " ci - отступы в стиле С
 set smartindent " Умные отступы (например, автоотступ после {)
 
-" Автоматическая замена групп из 4 пробелов на табы при открытии файла
-autocmd BufReadPost * silent! %s/ \{4\}/\t/g
-" команду для ручного вызова замены
+" Команда для ручного вызова замены пробелов на табы
 command! SpacesToTabs %s/ \{4\}/\t/g
 set mps+=<:> " показывать совпадающие скобки для HTML-тегов
 "" Автоматически перечитывать конфигурацию VIM после сохранения
@@ -77,8 +81,22 @@ autocmd FileType * set noexpandtab
 
 set langmap=фисвуапршолдьтщзйкыегмцчняФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
 set list		  " Показывать невидимые символы
-set listchars=tab:▸\ ,space:_
+set listchars=tab:▸\ ,space:\_
 
 set nobackup
 set nowritebackup
+
 set noundofile
+
+
+
+
+set mouse=
+" Для строки состояния
+set laststatus=2
+
+
+
+
+
+
