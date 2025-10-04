@@ -1,0 +1,15 @@
+[Unit]
+Description=Mount USB Drive %I
+Requires=dev-%i.device
+After=blockdev@%i.target
+# ConditionPathExists=/sys/class/block/%N/device/removable
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/bash -c '\
+        /usr/bin/mkdir -p /mnt/usb-%i && \
+        /usr/bin/mount /dev/%i /mnt/usb-%i'
+ExecStop=/usr/bin/bash -c '\
+        umount /mnt/usb-%i && \
+        rmdir /mnt/usb-%i || echo "error for removing /mnt/usb-%i"'
