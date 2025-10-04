@@ -1,0 +1,5 @@
+SUBSYSTEM=="block", KERNEL=="sd[b-z][0-9]", ACTION=="add", TAG+="systemd", ATTRS{removable}=="1", \
+        ENV{SYSTEMD_WANTS}="usb-mount@%k.service"
+
+SUBSYSTEM=="block", KERNEL=="sd[b-z][0-9]", ACTION=="remove", \
+        RUN+="/usr/bin/systemctl stop usb-mount@%k.service"
