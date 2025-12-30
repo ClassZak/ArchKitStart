@@ -45,8 +45,8 @@ let g:airline_filetype_overrides = {
 "Select one theme scheme color colorscheme colortheme
 "colorscheme onedark
 "colorscheme gruvbox
-"colorscheme nord
-colorscheme oceanic_material
+colorscheme nord
+"colorscheme oceanic_material
 
 set background=dark
 
@@ -55,7 +55,9 @@ set background=dark
 
 """ FONT
 "set guifont=Consolas:h8
-set guifont=Adwaita\ Mono
+"set guifont=Adwaita\ Mono
+"Windows
+set guifont=Noto\ Mono\ for\ Powerline:h7.75
 "set nowrap
 syntax on
 set number
@@ -69,17 +71,19 @@ set numberwidth=6
 "Use 24-bit (tru-color) mode in Vim/Neovim outside tmux
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux 24-bit color support
 "(see < https://sunaku.github.io./tmux-24bit-color.html#usage > for more information)
-if (empty($TMUX))
-	if (has("nvim"))
-		let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+if has("win32") || has("win64")
+else
+	if (empty($TMUX))
+		if (has("nvim"))
+			let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+		endif
+		if (has("termguicolors"))
+			set termguicolors
+		endif
 	endif
-	if (has("termguicolors"))
-		set termguicolors
-	endif
+	set term=xterm-256color
+	set t_Co=256
 endif
-set term=xterm-256color
-set t_Co=256
-
 
 
 
