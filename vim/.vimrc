@@ -1,31 +1,71 @@
 """ PLUGINS
-" Plujackguo380/vim-lsp-cxx-highlightgins
 call plug#begin()
 
+
 Plug 'scrooloose/nerdtree'	, { 'on' : 'NERDTreeToggle' }
+" Ctrl + Shift + E
+inoremap <c-s-e> <Esc>:NERDTreeToggle<cr>
+nnoremap <c-s-e> <Esc>:NERDTreeToggle<cr>
 Plug 'neoclide/coc.nvim'	, { 'branch' : 'release'}
-Plug 'jackguo380/vim-lsp-cxx-highlight'
-Plug 'morhetz/gruvbox'
+" use <tab> to trigger completion and navigate to the next complete item
+" THIS FUNCTION WAS COPIED FROM COC WIKI
+function! CheckBackspace() abort
+	let col = col('.') - 1
+	return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+inoremap <silent><expr> <Tab>
+	\ coc#pum#visible() ? coc#pum#next(1) :
+	\ CheckBackspace() ? "\<Tab>" :
+	\ coc#refresh
+inoremap <silent><expr> <S-Tab>
+	\ coc#pum#visible() ? coc#pum#prev(1) :
+	\"\<C-h>"
+" Use <c-space> to trigger completion
+" THIS FUNCTION WAS COPIED FROM COC WIKI
+inoremap <silent><expr> <c-@> coc#refresh()
+
+" C++
+Plug 'angelskieglazki/hcch.vim'
+"Plug 'jackguo380/vim-lsp-cxx-highlight' " not work
+Plug 'bfrg/vim-c-cpp-modern'
+" vim-c-cpp-modern settings
+let g:cpp_attributes_highlight = 1
+let g:cpp_member_highlight = 1
+let g:cpp_type_name_highlight = 1
+let g:cpp_operator_highlight = 1
+let g:cpp_builtin_types_as_statement = 1
+let g:cpp_simple_highlight = 1
+
+" Rust
+"Plug 'rust-lang/rust.vim'
+"Plug 'rust-lang/rust-analyzer'
+"Plug 'arzg/vim-rust-syntax-ext'
+
+" Assembly
+Plug 'Shirk/vim-gas'
+
+" Themes
+Plug 'gruvbox-community/gruvbox'
 Plug 'glepnir/oceanic-material'
 Plug 'joshdick/onedark.vim'
-Plug 'vim-airline/vim-airline'
-Plug 'angelskieglazki/hcch.vim'
 Plug 'arcticicestudio/nord-vim'
+Plug 'kristijanhusak/vim-hybrid-material'
+Plug 'nanotech/jellybeans.vim'
+
+" Menu
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
 " File search
 Plug 'wincent/ferret'
+
 " git
 Plug 'tpope/vim-fugitive'
 
+
 call plug#end()
 
-filetype plugin on
-
-
-
-
-""" CLANG SETTINGS
-let g:ycm_clangd_uses_ycmd_caching = 0
-let g:ycm_clangd_binary_path = exepath("clangd")
+filetype plugin indent on
 
 
 
@@ -45,8 +85,10 @@ let g:airline_filetype_overrides = {
 "Select one theme scheme color colorscheme colortheme
 "colorscheme onedark
 "colorscheme gruvbox
-colorscheme nord
-"colorscheme oceanic_material
+"colorscheme onedark
+colorscheme oceanic_material
+"colorscheme hybrid_materia
+"colorscheme jellybeans
 
 set background=dark
 
@@ -57,7 +99,11 @@ set background=dark
 "set guifont=Consolas:h8
 "set guifont=Adwaita\ Mono
 "Windows
-set guifont=Noto\ Mono\ for\ Powerline:h7.75
+if (has("win32") || has("win64"))
+	set guifont=Noto\ Mono\ for\ Powerline:h7.75
+else
+	set guifont=Adwaita\ Mono
+endif
 "set nowrap
 syntax on
 set number
@@ -84,6 +130,7 @@ else
 	set term=xterm-256color
 	set t_Co=256
 endif
+
 
 
 
@@ -127,11 +174,15 @@ let c_syntax_for_h="" " необходимо установить для тог�
 
 
 """ COMMANDS
-" 1 Command for handle calling space replacing
+" 1 Command for handle calling double space replacing into quadruple space
+command! SpacesDoubleToQuadruple %s/ \{2\}/\ \ \ \ /g
+" 2 Command for handle calling double space replacing into tabs
+command! SpacesDoubleToTabs %s/ \{2\}/\t/g
+" 3 Command for handle calling space replacing into tabs
 command! SpacesToTabs %s/ \{4\}/\t/g
-" 2 Force using tabs for all files
+" 4 Force using tabs for all files
 autocmd FileType * set noexpandtab
-" 3 Saving without \n
+" 5 Saving without \n
 function! SaveWithoutEOL()
 	silent! %s/\n$//e
 	let l:save_binary = &binary
