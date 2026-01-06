@@ -180,9 +180,11 @@ command! SpacesDoubleToQuadruple %s/ \{2\}/\ \ \ \ /g
 command! SpacesDoubleToTabs %s/ \{2\}/\t/g
 " 3 Command for handle calling space replacing into tabs
 command! SpacesToTabs %s/ \{4\}/\t/g
-" 4 Force using tabs for all files
+" 4 Command fot handle calling replacing spaces at the lines beginning into tabs
+command! SpacesToTabsFirst %s/^\ \{4\}/\t/g
+" 5 Force using tabs for all files
 autocmd FileType * set noexpandtab
-" 5 Saving without \n
+" 6 Saving without \n
 function! SaveWithoutEOL()
 	silent! %s/\n$//e
 	let l:save_binary = &binary
