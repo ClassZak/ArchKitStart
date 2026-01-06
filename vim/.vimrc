@@ -87,7 +87,7 @@ let g:airline_filetype_overrides = {
 "colorscheme gruvbox
 "colorscheme onedark
 colorscheme oceanic_material
-"colorscheme hybrid_materia
+"colorscheme hybrid_material
 "colorscheme jellybeans
 
 set background=dark
