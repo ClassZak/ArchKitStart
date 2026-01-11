@@ -86,8 +86,8 @@ let g:airline_filetype_overrides = {
 "colorscheme onedark
 "colorscheme gruvbox
 "colorscheme onedark
-colorscheme oceanic_material
-"colorscheme hybrid_material
+"colorscheme oceanic_material
+colorscheme hybrid_material
 "colorscheme jellybeans
 
 set background=dark
@@ -117,7 +117,7 @@ set numberwidth=6
 "Use 24-bit (tru-color) mode in Vim/Neovim outside tmux
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux 24-bit color support
 "(see < https://sunaku.github.io./tmux-24bit-color.html#usage > for more information)
-if has("win32") || has("win64")
+if (has("win32") || has("win64"))
 else
 	if (empty($TMUX))
 		if (has("nvim"))
@@ -217,6 +217,9 @@ set listchars=tab:▸\ ,space:\_
 set nobackup
 set nowritebackup
 set noundofile
+if (has("win32") || has("win64"))
+	set noswapfile
+endif
 
 
 
