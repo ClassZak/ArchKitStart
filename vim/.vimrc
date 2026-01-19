@@ -197,6 +197,8 @@ function! SaveWithoutEOL()
 	let &eol = l:save_eol
 endfunction
 command! SaveNoEOL call SaveWithoutEOL()
+" 7 Reopen in cyrilic encoding for Windows
+command! ReopenCP1251 e ++enc=cp1251
 
 
 
