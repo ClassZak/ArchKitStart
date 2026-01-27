@@ -236,7 +236,7 @@ bar {
 
 	# When the status_command prints a new line to stdout, swaybar updates.
 	# The default just shows the current date and time.
-	status_command while date +'%d-%m-%Y %H:%M:%S.%3N'; do sleep 0.125 ; done
+	status_command while echo "$(date +'%d-%m-%Y %H:%M:%S.%3N') $(swaymsg -t get_inputs | grep -A 10 'type.*keyboard' | grep 'xkb_active_layout_name' | head -1 | cut -d':' -f2 | tr -d ' \",')"; do sleep 0.125 ; done
 	
 	mode dock
 	colors {
