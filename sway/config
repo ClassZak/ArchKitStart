@@ -100,10 +100,10 @@ input type:keyboard {
 # Moving around:
 #
 	# Move your focus around
-	bindsym $mod+$left focus left
-	bindsym $mod+$down focus down
-	bindsym $mod+$up focus up
-	bindsym $mod+$right focus right
+	bindsym --to-code $mod+$left focus left
+	bindsym --to-code $mod+$down focus down
+	bindsym --to-code $mod+$up focus up
+	bindsym --to-code $mod+$right focus right
 	# Or use $mod+[up|down|left|right]
 	bindsym $mod+Left focus left
 	bindsym $mod+Down focus down
