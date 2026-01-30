@@ -229,15 +229,25 @@ gaps inner 1
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
-bar {
-	font pango: noto-fonts-emoji 8
-#	font pango: Consolas 8
-	position top
+#bar {
+#	font pango: noto-fonts-emoji 8
+#	position top
 
-	# When the status_command prints a new line to stdout, swaybar updates.
-	# The default just shows the current date and time.
-	status_command while echo "$(date +'%d-%m-%Y %H:%M:%S.%3N') $(swaymsg -t get_inputs | grep -A 10 'type.*keyboard' | grep 'xkb_active_layout_name' | head -1 | cut -d':' -f2 | tr -d ' \",')"; do sleep 0.125 ; done
-	
+#	# When the status_command prints a new line to stdout, swaybar updates.
+#	# The default just shows the current date and time.
+#	status_command while echo "$(date +'%d-%m-%Y %H:%M:%S.%3N') ⌨ $(swaymsg -t get_inputs | grep -A 10 'type.*keyboard' | grep 'xkb_active_layout_name' | head -1 | cut -d':' -f2 | tr -d ' \",')"; do sleep 0.17 ; done
+#	mode dock
+#	colors {
+#		background	#242424
+#		statusline	#aaaaaa
+#		separator	#cc0000
+#		inactive_workspace	#334400 #333333 #dadada
+#		focused_workspace	#559999 #993300 #111111
+#	}
+#}
+
+bar {
+	position top
 	mode dock
 	colors {
 		background	#242424
@@ -246,6 +256,8 @@ bar {
 		inactive_workspace	#334400 #333333 #dadada
 		focused_workspace	#559999 #993300 #111111
 	}
+
+	swaybar_command waybar
 }
 
 # Cursor
@@ -261,5 +273,13 @@ exec_always {
 	eval $(/usr/bin/gnome-keyring-daemon --start --components=secrets)
 }
 xwayland enable
+
+#
+# Windows rules
+#
+for_window [app_id="pavucontrol"] floating enable
+for_window [app_id="imv"] floating enable
+for_window [title="feh*"] floating enable
+for_window [shell=".*"] title_format "%title :: %app_id"
 
 include /etc/sway/config.d/*
