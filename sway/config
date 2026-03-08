@@ -16,7 +16,7 @@ set $right l
 # Your preferred terminal emulator
 set $term foot
 # Your preferred application launcher
-set $menu wmenu-run
+set $menu rofi
 # Your browsers
 set $browser1 chromium
 set $browser2 firefox
@@ -25,9 +25,14 @@ set $browser2 firefox
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 output * bg #303030 solid_color
-client.focused		#559999 #993300 #111111
-client.background	#334400 #333333 #dadada
-client.unfocused	#334400 #333333 #dadada
+client.focused			#ff5555 #773333 #000000
+client.urgent			#ff5555 #772222 #ffffff
+client.focused_inactive	#888888 #663344 #ffffff
+client.background		#334400 #333333 #dadada
+client.unfocused		#55ff55 #333333 #dadada
+#default_border pixel 1
+#default_floating_border pixel 1
+
 # Example configuration:
 #
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
@@ -59,8 +64,8 @@ client.unfocused	#334400 #333333 #dadada
 #   }
 #
 input type:keyboard {
-	xkb_layout "eu,ru
-	xkb_options "grp:lalt_lshift_toggle"
+	xkb_layout us,ru
+	xkb_options grp:lalt_lshift_toggle
 }
 #
 # You can also configure each device individually.
@@ -73,17 +78,14 @@ input type:keyboard {
 	# Start a terminal
 	bindsym $mod+Return exec $term
 	# Start browser
-	bindsym $mod+Shift+Return exec MESA_LOADER_DRIVER_OVERRIDE=nouveau $browser1 --password-store=basic
+	bindsym --to-code $mod+Shift+Return exec MESA_LOADER_DRIVER_OVERRIDE=nouveau $browser1 --password-store=basic
 	#bindsym $mod+Shift+Return exec $browser1 --disable-gpu --disable-software-rasterizer --password-store=basic
-	bindsym $mod+Shift+f exec MESA_LOADER_DRIVER_OVERRIDE=nouveau $browser2
+	bindsym --to-code $mod+Shift+f exec MESA_LOADER_DRIVER_OVERRIDE=nouveau $browser2
 	# rofi
-	bindsym $mod+Shift+r exec rofi -show run
+	bindsym --to-code $mod+Shift+r exec rofi -show drun
 	# Kill focused window
-	bindsym $mod+Shift+q kill
-
-	# Start your launcher
-	bindsym $mod+d exec $menu
-
+	bindsym --to-code $mod+Shift+q kill
+	
 	# Drag floating windows by holding down $mod and left mouse button.
 	# Resize them with right mouse button + $mod.
 	# Despite the name, also works for non-floating windows.
@@ -92,10 +94,10 @@ input type:keyboard {
 	floating_modifier $mod normal
 
 	# Reload the configuration file
-	bindsym $mod+Shift+c reload
+	bindsym --to-code $mod+Shift+c reload
 
 	# Exit sway (logs you out of your Wayland session)
-	bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+	bindsym --to-code $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 #
 # Moving around:
 #
@@ -153,16 +155,16 @@ input type:keyboard {
 	# You can "split" the current object of your focus with
 	# $mod+b or $mod+v, for horizontal and vertical splits
 	# respectively.
-	bindsym $mod+b splith
-	bindsym $mod+v splitv
+	bindsym --to-code $mod+b splith
+	bindsym --to-code $mod+v splitv
 
 	# Switch the current container between different layout styles
-	bindsym $mod+s layout stacking
-	bindsym $mod+w layout tabbed
-	bindsym $mod+e layout toggle split
+	bindsym --to-code $mod+s layout stacking
+	bindsym --to-code $mod+w layout tabbed
+	bindsym --to-code $mod+e layout toggle split
 
 	# Make the current focus fullscreen
-	bindsym $mod+f fullscreen
+	bindsym --to-code $mod+f fullscreen
 
 	# Toggle the current focus between tiling and floating mode
 	bindsym $mod+Shift+space floating toggle
@@ -171,7 +173,7 @@ input type:keyboard {
 	bindsym $mod+space focus mode_toggle
 
 	# Move focus to the parent container
-	bindsym $mod+a focus parent
+	bindsym --to-code $mod+a focus parent
 #
 # Scratchpad:
 #
@@ -179,11 +181,11 @@ input type:keyboard {
 	# You can send windows there and get them back later.
 
 	# Move the currently focused window to the scratchpad
-	bindsym $mod+Shift+minus move scratchpad
+	bindsym --to-code $mod+Shift+minus move scratchpad
 
 	# Show the next scratchpad window or hide the focused scratchpad window.
 	# If there are multiple scratchpad windows, this command cycles through them.
-	bindsym $mod+minus scratchpad show
+	bindsym --to-code $mod+minus scratchpad show
 #
 # Resizing containers:
 #
@@ -207,9 +209,11 @@ mode "resize" {
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
 }
-bindsym $mod+r mode "resize"
+bindsym --to-code $mod+r mode "resize"
 # Gaps
 gaps inner 1
+gaps outer 1
+smart_gaps off
 
 #
 # Utilities:
@@ -223,40 +227,17 @@ gaps inner 1
 	bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
 	bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
 	# Special key to take a screenshot with grim
-	#bindsym Print exec grim
+	bindsym --to-code $mod+Print exec grim -g "$(slurp)" ~/Pictures/Screenshots/$(date +'%Y.%m.%d-%H.%M.%S-%3N').png
 	bindsym Print exec grim -g "$(slurp -d)" - | wl-copy
+	# color pick colorpicker
+	#bindsym --to-code $mod+c exec grim -g "$(slurp -p)" -t ppm - | convert - -format "%[pixel:p{0,0}]" txt:- | tail -n 1 | cut -d " " -f 4 | wl-copy
+	bindsym --to-code $mod+c exec wl-color-picker clipboard; mode "default"
 #
-# Status Bar:
+# Status Bar: waybar
 #
-# Read `man 5 sway-bar` for more information about this section.
-#bar {
-#	font pango: noto-fonts-emoji 8
-#	position top
-
-#	# When the status_command prints a new line to stdout, swaybar updates.
-#	# The default just shows the current date and time.
-#	status_command while echo "$(date +'%d-%m-%Y %H:%M:%S.%3N') ⌨ $(swaymsg -t get_inputs | grep -A 10 'type.*keyboard' | grep 'xkb_active_layout_name' | head -1 | cut -d':' -f2 | tr -d ' \",')"; do sleep 0.17 ; done
-#	mode dock
-#	colors {
-#		background	#242424
-#		statusline	#aaaaaa
-#		separator	#cc0000
-#		inactive_workspace	#334400 #333333 #dadada
-#		focused_workspace	#559999 #993300 #111111
-#	}
-#}
-
 bar {
 	position top
 	mode dock
-	colors {
-		background	#242424
-		statusline	#aaaaaa
-		separator	#cc0000
-		inactive_workspace	#334400 #333333 #dadada
-		focused_workspace	#559999 #993300 #111111
-	}
-
 	swaybar_command waybar
 }
 
@@ -267,11 +248,14 @@ seat seat0 {
 }
 # Wayland env vars
 set $qt Wayland env vars
-exec_always {
-	export QT_QPA_PLATFORM=wayland
-	export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
-	eval $(/usr/bin/gnome-keyring-daemon --start --components=secrets)
-}
+exec export QT_QPA_PLATFORM=wayland
+exec export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+exec export __GLX_VENDOR_LIBRARY_NAME=nvidia
+#exec export GBM_BACKEND=nvidia-drm
+exec export WLR_NO_HARDWARE_CURSORS=1
+exec export XDG_CURRENT_DESKTOP=sway
+#eval $(/usr/bin/gnome-keyring-daemon --start --components=secrets)
+exec_always multibg-wayland --gpu /home/zak/wallpapers/ 
 xwayland enable
 
 #
@@ -279,7 +263,10 @@ xwayland enable
 #
 for_window [app_id="pavucontrol"] floating enable
 for_window [app_id="imv"] floating enable
-for_window [title="feh*"] floating enable
-for_window [shell=".*"] title_format "%title :: %app_id"
+for_window [app_id="feh"] floating enable
+for_window [shell=".*"] title_format "%title - %app_id"
+for_window [title="Open Folder"] floating enable
+for_window [title="Open File"] floating enable
+
 
 include /etc/sway/config.d/*

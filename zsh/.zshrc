@@ -3,6 +3,7 @@
 
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+export QT_QPA_PLATFORM=wayland
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time Oh My Zsh is loaded, in which case,
@@ -19,8 +20,8 @@ export ZSH="$HOME/.oh-my-zsh"
 #exit code
 #ZSH_THEME="rgm"
 #ZSH_THEME="takashiyoshida"
-ZSH_THEME="zak2"
-
+ZSH_THEME="my_zsh_theme"
+#ZSH_THEME="af-magic"
 
 
 # Set list of themes to pick from when loading at random
@@ -89,7 +90,19 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
+# EXPORTS
 # export MANPATH="/usr/local/man:$MANPATH"
+#export MESA_LOADER_DRIVER_OVERRIDE=nouveau
+export GALLIUM_DRIVER=llvmpipe
+export WLR_RENDERER=gles2
+export QT_QPA_PLATFORM=wayland
+export QT_QPA_PLATFORM=wayland
+export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+export __GLX_VENDOR_LIBRARY_NAME=nvidia
+#exec export GBM_BACKEND=nvidia-drm
+export WLR_NO_HARDWARE_CURSORS=1
+export TERMINAL=foot
+#export XDG_CURRENT_DESKTOP=sway
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -117,4 +130,23 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
 # ALIASES
-alias ll="ls -alF --color=auto"
+alias vim-safe='MESA_LOADER_DRIVER_OVERRIDE=nouveau vim -u NONE -U NONE +"set noswapfile"'
+alias ls='ls --color=auto'
+alias ll='ls --color=auto -alF'
+alias llh='ls --color=auto -alFh'
+alias grep='grep --color=auto'
+alias telegram='exec /home/zak/Downloads/Telegram/Telegram &'
+# alias intelij='LIBGL_ALWAYS_SOFTWARE=true LIBGL_KOPPER_DISABLE=true MESA_LOADER_DRIVER_OVERRIDE=nouveau _JAVA_OPTIONS="-Dsun.java2d.opengl=false" /home/zak/Downloads/downloaded_programs/jetbrains/idea-IC-252.26830.84/bin/idea'
+alias intelij='LIBGL_ALWAYS_SOFTWARE=true LIBGL_KOPPER_DISABLE=true MESA_LOADER_DRIVER_OVERRIDE=nouveau /home/zak/Downloads/downloaded_programs/jetbrains/idea-IC-252.26830.84/bin/idea'
+alias sway_cfg='vim /home/zak/.config/sway/config'
+alias hypr_cfg='vim /home/zak/.config/hypr/hyprland.conf'
+alias sway_start='sway 2>sway_err.log'
+# alias chromium='chromium --disable-gpu --disable-software-rasterizer --password-store=basic'
+# alias chromium='MESA_LOADER_DRIVER_OVERRIDE=nouveau chromium --disable-gpu --disable-software-rasterizer --password-store=basic'
+alias chromium='MESA_LOADER_DRIVER_OVERRIDE=nouveau chromium --disable-gpu --disable-software-rasterizer --password-store=basic --disable-features=Vulkan'
+alias firefox='MESA_LOADER_DRIVER_OVERRIDE=nouveau firefox'
+alias mysqlworkbench='MYSQL_WORKBENCH_NO_KEYRING=1 mysql-workbench'
+alias prismlauncher='export GDK_BACKEND=wayland,x11 ; export QT_QPA_PLATFORM=wayland ;prismlauncher'
+
+# Load Angular CLI autocompletion.
+#source <(ng completion script)
