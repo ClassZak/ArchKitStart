@@ -25,11 +25,11 @@ set $browser2 firefox
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 output * bg #303030 solid_color
-client.focused			#ff5555 #773333 #000000
-client.urgent			#ff5555 #772222 #ffffff
-client.focused_inactive	#888888 #663344 #ffffff
+client.focused			#55ff55 #337733 #000000
+client.urgent			#55ff55 #604760 #7f7f7f
+client.focused_inactive	#668ec0 #334760 #7f7f7f
 client.background		#334400 #333333 #dadada
-client.unfocused		#55ff55 #333333 #dadada
+client.unfocused		#668ec0 #334760 #7f7f7f
 #default_border pixel 1
 #default_floating_border pixel 1
 
@@ -239,6 +239,9 @@ bar {
 	position top
 	mode dock
 	swaybar_command waybar
+	colors {
+		binding_mode #ff0000 #ff0000 #ff0000
+	}
 }
 
 # Cursor
@@ -255,7 +258,10 @@ exec export __GLX_VENDOR_LIBRARY_NAME=nvidia
 exec export WLR_NO_HARDWARE_CURSORS=1
 exec export XDG_CURRENT_DESKTOP=sway
 #eval $(/usr/bin/gnome-keyring-daemon --start --components=secrets)
-exec_always multibg-wayland --gpu /home/zak/wallpapers/ 
+#exec_always multibg-wayland --gpu /home/zak/wallpapers/ ; systemctl --user import-environment WAYLAND_DISPLAY ; /home/zak/\.local/bin/wlsunset-on.sh
+exec_always multibg-wayland --gpu /home/zak/wallpapers/ &
+exec_always systemctl --user import-environment WAYLAND_DISPLAY DBUS_SESSION_BUS_ADDRESS
+exec_always systemctl --user start wlsunset-night.service
 xwayland enable
 
 #
@@ -264,9 +270,23 @@ xwayland enable
 for_window [app_id="pavucontrol"] floating enable
 for_window [app_id="imv"] floating enable
 for_window [app_id="feh"] floating enable
-for_window [shell=".*"] title_format "%title - %app_id"
+#for_window [shell=".*"] title_format "%title - %app_id"
 for_window [title="Open Folder"] floating enable
 for_window [title="Open File"] floating enable
+for_window [title="Save File"] floating enable
+for_window [class="Matplotlib"] floating enable
+for_window [title="Figure*"] floating enable
+
+
+## Transparent Windows
+set $trans 0.91
+set $alphamark "a"
+for_window [con_mark=$alphamark] opacity set $trans
+bindsym --to-code $mod+Shift+a \
+	mark --toggle "$alphamark"; \
+	[con_id=__focused__] opacity set 1; \
+	[con_mark=$alphamark con_id=__focused__] opacity set $trans
+
 
 
 include /etc/sway/config.d/*
