@@ -1,0 +1,405 @@
+* {
+	/* `otf-font-awesome` is required to be installed for icons */
+	min-height: 0;
+	font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+	font-size: 10px;
+}
+
+/* set defualt styles */
+#battery,
+#clock,
+#custom-wlsunset,
+#pulseaudio,
+#temperature,
+#tray,
+#custom-notification,
+#backlight,
+#disk,
+#bluetooth,
+#custom-power,
+#keyboard-state,
+#language,
+#workspaces button {
+	padding: 0;
+	border: 1px solid #ff0000;
+	margin: 0px;
+}
+
+
+
+
+#tray,
+#workspaces button {
+	border-radius: 5px;
+}
+
+
+
+
+/**/
+
+
+
+
+
+#custom-wlsunset,
+#custom-power,
+#clock,
+#language,
+#pulseaudio,
+#keyboard-state
+{
+	padding: 0 8px;
+	color: whitesmoke;
+	border-color: wheat;
+}
+
+
+
+
+
+
+window#waybar {
+	background-color: inherit;
+	/*border-bottom: 3px solid rgba(100, 114, 125, 0.5);*/
+	color: #aaaaaa;
+	transition-property: background-color;
+	transition-duration: .2s;
+}
+
+window#waybar.hidden {
+	opacity: 0.2;
+}
+
+
+window#waybar.empty {
+	background-color: transparent;
+}
+window#waybar.solo {
+	background-color: transparent;
+}
+
+window#waybar.termite {
+	background-color: transparent}
+
+window#waybar.chromium {
+	background-color: transparent;
+	border: none;
+}
+
+button {
+	/* Use box-shadow instead of border so the text isn't offset */
+	box-shadow: inset 0 -3px transparent;
+	/* Avoid rounded borders under each button name */
+	border: none;
+	border-radius: 0;
+}
+
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+button:hover {
+	background: inherit;
+	box-shadow: inset 0 -3px #ffffff;
+}
+
+/* you can set a style on hover for any module like this */
+#workspaces button:hover {
+	background-color: #773333;
+	box-shadow: inherit;
+	text-shadow: inherit;
+	border-color: #5f5;
+	color: black;
+}
+#workspaces button {
+	padding: 0 1px;
+	background-color: transparent;
+	color: white;
+	border-color: #55ff55;
+}
+
+#workspaces button.focused {
+	color: black;
+	background-color: #773333;
+	border-color: #ff5555;
+}
+
+#workspaces button.activated,
+#workspaces button.active
+{
+	background-color: blue;
+}
+#workspaces button.urgent,
+#workspaces button.active
+{
+	background-color: #772222;
+	border-color: #f55
+}
+
+#mode {
+	background-color: #64727D;
+	box-shadow: inset 0 -3px #ffffff;
+}
+
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left > widget:first-child > #workspaces {
+	margin-left: 0;
+}
+
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right > widget:last-child > #workspaces {
+	margin-right: 0;
+}
+
+#battery {
+	background-color: #ffffff;
+	color: #000000;
+}
+
+#battery.charging, #battery.plugged {
+	color: #ffffff;
+	background-color: #26A65B;
+}
+
+@keyframes blink {
+	to {
+		background-color: #ffffff;
+		color: #000000;
+	}
+}
+
+/* Using steps() instead of linear as a timing function to limit cpu usage */
+#battery.critical:not(.charging) {
+	background-color: #f53c3c;
+	color: #ffffff;
+	animation-name: blink;
+	animation-duration: 0.5s;
+	animation-timing-function: steps(12);
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+}
+
+#power-profiles-daemon {
+	padding-right: 15px;
+}
+
+#power-profiles-daemon.performance {
+	background-color: #f53c3c;
+	color: #ffffff;
+}
+
+#power-profiles-daemon.balanced {
+	background-color: #2980b9;
+	color: #ffffff;
+}
+
+#power-profiles-daemon.power-saver {
+	background-color: #2ecc71;
+	color: #000000;
+}
+
+label:focus {
+	background-color: #000000;
+}
+
+
+
+
+
+#network,
+#memory,
+#cpu{
+	border-top: 2px solid #EF5C5C;
+	border-bottom: 2px solid #ADD8E6;
+	padding-left:5px;
+	padding-right:5px;
+	color: #111;
+}
+#cpu,
+#memory{
+	min-width:40px;
+}
+
+
+#cpu {
+	background-color: #2ecc71;
+}
+
+#memory {
+	min-width: 110px;
+	background-color: #B99CDC;
+	border-right: 2px solid #ADD8E6;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	margin-right: 5px;
+}
+
+
+#network {
+	background-color: #74C7EC;
+	border-left: 2px solid #EF5C5C;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+#network.disconnected {
+	background-color: #773333;
+}
+
+
+
+
+#backlight {
+	background-color: #90b1b1;
+}
+#custom-media {
+	background-color: #66cc99;
+	color: #2a5c45;
+	min-width: 100px;
+}
+
+#custom-media.custom-vlc {
+	background-color: #ffa000;
+}
+
+#temperature {
+	background-color: #f0932b;
+}
+
+#temperature.critical {
+	background-color: #eb4d4b;
+}
+
+#tray {
+	margin-right: 5px;
+	margin-left: 5px;
+	padding: 0 8px;
+
+	background-color: transparent;
+	border-radius: 5px;
+
+	border-top: 1px solid #EF5C5C;
+	border-left: 1px solid #EF5C5C;
+
+	border-bottom: 1px solid #ADD8E6;
+	border-right: 1px solid #ADD8E6;
+	border-width: 2px;
+}
+
+#tray > .passive {
+	-gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+	-gtk-icon-effect: highlight;
+	background-color: #eb4d4b;
+}
+
+
+#keyboard-state *{
+	font-size: 5px;
+	padding: 0;
+}
+
+#keyboard-state > label {
+	padding: 0px;
+}
+
+#keyboard-state > label.locked {
+	background: rgba(0, 0, 0, 0.2);
+}
+
+#scratchpad {
+	background: rgba(0, 0, 0, 0.2);
+}
+
+#scratchpad.empty {
+	background-color: transparent;
+}
+
+#privacy {
+	padding: 0;
+}
+
+#privacy-item {
+	padding: 0 5px;
+	color: white;
+}
+
+#privacy-item.screenshare {
+	background-color: #cf5700;
+}
+
+#privacy-item.audio-in {
+	background-color: #1ca000;
+}
+
+#privacy-item.audio-out {
+	background-color: #0069d4;
+}
+
+
+
+
+
+
+
+
+/* styles of right modules */
+#custom-wlsunset {
+	margin-left: 5px;
+	margin-right: 0;
+	color: whitesmoke;
+	background-color: #242424;
+/*	font-size: 1rem;*/
+	padding: 0 4px;
+}
+
+
+#pulseaudio:hover {
+	background-color: #a37800;
+}
+#pulseaudio {
+	background-color: #f1c40f;
+	color: black;
+}
+#pulseaudio.muted {
+	background-color: #90b1b1;
+	color: #2a5c45;
+}
+
+
+#language {
+	background: #00b093;
+	color: #740864;
+	min-width: 16px;
+}
+
+
+#clock{
+	background-color: #5d5d5d;
+	min-width: 100px;
+}
+
+
+#custom-power{
+	background-color: crimson;
+}
+
+
+#keyboard-state{
+	font-size: 2px;
+	padding: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
