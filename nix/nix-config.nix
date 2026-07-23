@@ -246,7 +246,11 @@ in
     nerd-fonts.fira-code
     nerd-fonts.jetbrains-mono
     noto-fonts noto-fonts-cjk-sans noto-fonts-emoji liberation_ttf dejavu_fonts
+	font-awesome
+    roboto
+    material-design-icons
     swaylock swayidle
+	fastfetch
   ];
 
   environment.etc."skel/.config/hypr/hyprland.conf".source = hyprlandConfig;
