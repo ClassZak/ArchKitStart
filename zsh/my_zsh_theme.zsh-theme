@@ -32,8 +32,9 @@ check_status() {
     fi
 }
 # primary prompt: dashed separator, directory and vcs info
-PS1="${FG[237]}\${(l.\$(afmagic_dashes)..-.)}%{$reset_color%}
-⌚ %{$fg_bold[red]%}%*%{$reset_color%} ${FG[050]}%~\$(git_prompt_info)\$(virtualenv_prompt_info)\$(hg_prompt_info) ${FG[105]}%(!.#.
+#PS1="${FG[237]}\${(l.\$(afmagic_dashes)..-.)}%{$reset_color%}
+
+PS1="⌚ %{$fg_bold[red]%}%*%{$reset_color%} ${FG[050]}%~\$(git_prompt_info)\$(virtualenv_prompt_info)\$(hg_prompt_info) ${FG[105]}%(!.#.
 %(?.%{$fg[green]%}✓ .%{$fg[red]%}✘ %?)	${FG[105]}»)%{$reset_color%}"
 PS2="%{$fg[red]%}\ %{$reset_color%}"
 
