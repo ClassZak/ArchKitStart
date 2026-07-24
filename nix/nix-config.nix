@@ -93,7 +93,15 @@ in
     grub.device = "/dev/sda";
     grub.efiSupport = false;
   };
-
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = true;
+      PermitRootLogin = "yes";
+      MaxAuthTries = 12;
+      PerSourcePenalties = "crash:3600s authfail:3600s max:86400s";
+    };
+  };
   # -------------------------- Пользователь dev --------------------------
   users.users.dev = {
     isNormalUser = true;
@@ -162,23 +170,35 @@ in
 
   # -------------------------- Шрифты (глобально) --------------------------
   fonts.fontconfig.enable = true;
-  #fonts.fontconfig.defaultFonts = {
-  #  monospace = [ "Noto Sans Mono" "JetBrains Mono" "DejaVu Sans Mono" ];
-  #  sansSerif = [ "Roboto" "Noto Sans" ];
-  #  serif = [ "Noto Serif" ];
-  #};
+
+  # -------------------------- ENV    --------------------------
+  hardware.graphics = {
+    enable = true;
+    # setLdLibraryPath = true; # УСТАРЕЛО, НЕ ИСПОЛЬЗУЕМ
+  };
+  
+  environment.sessionVariables = {
+    LD_LIBRARY_PATH = "${pkgs.gcc.cc.lib}/lib:${pkgs.stdenv.cc.cc.lib}/lib:${pkgs.curl}/lib";
+    LIBGL_DRIVERS_PATH = "${pkgs.mesa.drivers}/lib/dri";
+  };
 
   # -------------------------- Пакеты --------------------------
   environment.systemPackages = with pkgs; [
     # Языки и компиляторы
     python3
     python3Packages.pip
+    python3Packages.tkinter   # или python3Packages.tk
+    python3Packages.pyqt5
+    qt5.qtwayland 
     uv
+	sudo
+    ruff
     gcc gnumake cmake
+    ninja meson
     nodejs yarn pnpm
     openjdk
     # Оболочки
-    zsh fish
+    zsh fish tmux
     # Утилиты
     curl wget unzip ripgrep fd gdb lldb valgrind
     git vim neovim htop btop fastfetch lm_sensors
@@ -200,6 +220,7 @@ in
     wlsunset-off
     wlsunset-status
     # Шрифты
+    powerline-fonts
     nerd-fonts.fira-code
     nerd-fonts.jetbrains-mono
     noto-fonts
@@ -213,6 +234,26 @@ in
     # Для Sway
     swaylock swayidle
     fastfetch
+    # Additional environment
+    libGL
+    libxkbcommon
+    xorg.libX11
+    xorg.libxcb
+    mesa
+    curl
+    nix-prefetch-git
+
+    # Open source not famous packages
+    (pkgs.stdenv.mkDerivation {
+      pname = "facad";
+      version = "2.20.16";
+      src = pkgs.fetchgit {
+        url = "https://github.com/yellow-footed-honeyguide/facad";
+        rev = "master";
+        sha256 = "0ncnhl6yzhaxfdcscj09z7b28dkcsawxx297h30vlsqfrnwsq2z8";
+      };
+      nativeBuildInputs = [ pkgs.meson pkgs.ninja ];
+    })
   ];
 
   system.stateVersion = "24.11";
