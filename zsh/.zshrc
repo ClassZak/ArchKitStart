@@ -84,7 +84,7 @@ ZSH_THEME="my_zsh_theme"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git virtualenv)
+plugins=(git virtualenv zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
