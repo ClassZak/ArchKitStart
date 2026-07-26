@@ -122,14 +122,10 @@ button:hover {
 	border-color: #ff5555;
 }
 
-#workspaces button.activated,
-#workspaces button.active
-{
+#workspaces button.activated {
 	background-color: blue;
 }
-#workspaces button.urgent,
-#workspaces button.active
-{
+#workspaces button.urgent {
 	background-color: #772222;
 	border-color: #f55
 }
