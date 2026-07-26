@@ -140,8 +140,8 @@ alias amnezia='LD_LIBRARY_PATH=/opt/AmneziaVPN/client/lib QT_QPA_PLATFORM=xcb /o
 
 # alias intelij='LIBGL_ALWAYS_SOFTWARE=true LIBGL_KOPPER_DISABLE=true MESA_LOADER_DRIVER_OVERRIDE=nouveau _JAVA_OPTIONS="-Dsun.java2d.opengl=false" /home/zak/Downloads/downloaded_programs/jetbrains/idea-IC-252.26830.84/bin/idea'
 alias intelij='LIBGL_ALWAYS_SOFTWARE=true LIBGL_KOPPER_DISABLE=true MESA_LOADER_DRIVER_OVERRIDE=nouveau idea'
-alias sway_cfg='vim /home/zak/.config/sway/config'
-alias hypr_cfg='vim /home/zak/.config/hypr/hyprland.conf'
+alias sway_cfg='vim $HOME/.config/sway/config'
+alias hypr_cfg='vim $HOME/.config/hypr/hyprland.conf'
 alias sway_start='sway 2>sway_err.log'
 # alias chromium='chromium --disable-gpu --disable-software-rasterizer --password-store=basic'
 # alias chromium='MESA_LOADER_DRIVER_OVERRIDE=nouveau chromium --disable-gpu --disable-software-rasterizer --password-store=basic'
