@@ -191,6 +191,7 @@
 			"shutdown-c": "shutdown -c",
 			"reboot": "reboot",
 			"suspend": "systemctl suspend",
+			"lock": "swaylock -f -c 000000",
 			"hibernate": "systemctl hibernate",
 			"logout": "sway exit",
 			"rofi": "rofi -show run"
