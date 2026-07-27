@@ -43,7 +43,7 @@ client.unfocused		#668ec0 #334760 #7f7f7f
 #
 # Example configuration:
 #
-exec swayidle -w \ timeout 300 'swaylock -f -c 000000' #\
+exec swayidle -w timeout 300 'swaylock -f -c 000000' #\
 #		  timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
 #		  before-sleep 'swaylock -f -c 000000'
 #
@@ -257,8 +257,8 @@ exec export __GLX_VENDOR_LIBRARY_NAME=nvidia
 exec export WLR_NO_HARDWARE_CURSORS=1
 exec export XDG_CURRENT_DESKTOP=sway
 #eval $(/usr/bin/gnome-keyring-daemon --start --components=secrets)
-#exec_always multibg-wayland --gpu /home/zak/wallpapers/ ; systemctl --user import-environment WAYLAND_DISPLAY ; /home/zak/\.local/bin/wlsunset-on.sh
-exec_always multibg-wayland --gpu /home/zak/wallpapers/ &
+#exec_always multibg-wayland --gpu $HOME/wallpapers/ ; systemctl --user import-environment WAYLAND_DISPLAY ; $HOME/\.local/bin/wlsunset-on.sh
+exec_always multibg-wayland --gpu $HOME/wallpapers/ &
 exec_always systemctl --user import-environment WAYLAND_DISPLAY DBUS_SESSION_BUS_ADDRESS
 exec_always systemctl --user start wlsunset-night.service
 xwayland enable
