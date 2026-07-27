@@ -99,6 +99,8 @@ export QT_QPA_PLATFORM=wayland
 export QT_QPA_PLATFORM=wayland
 export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 export __GLX_VENDOR_LIBRARY_NAME=nvidia
+export QT_QPA_PLATFORMTHEME=qt5ct
+export QT_STYLE_OVERRIDE=kvantum
 #exec export GBM_BACKEND=nvidia-drm
 export WLR_NO_HARDWARE_CURSORS=1
 export TERMINAL=foot
@@ -135,10 +137,10 @@ alias ls='ls --color=auto'
 alias ll='ls --color=auto -alF'
 alias llh='ls --color=auto -alFh'
 alias grep='grep --color=auto'
-alias telegram='exec /home/zak/Downloads/Telegram/Telegram &'
+alias telegram='exec $HOME/Downloads/Telegram/Telegram &'
 alias amnezia='LD_LIBRARY_PATH=/opt/AmneziaVPN/client/lib QT_QPA_PLATFORM=xcb /opt/AmneziaVPN/client/bin/AmneziaVPN'
 
-# alias intelij='LIBGL_ALWAYS_SOFTWARE=true LIBGL_KOPPER_DISABLE=true MESA_LOADER_DRIVER_OVERRIDE=nouveau _JAVA_OPTIONS="-Dsun.java2d.opengl=false" /home/zak/Downloads/downloaded_programs/jetbrains/idea-IC-252.26830.84/bin/idea'
+# alias intelij='LIBGL_ALWAYS_SOFTWARE=true LIBGL_KOPPER_DISABLE=true MESA_LOADER_DRIVER_OVERRIDE=nouveau _JAVA_OPTIONS="-Dsun.java2d.opengl=false" $HOME/Downloads/downloaded_programs/jetbrains/idea-IC-252.26830.84/bin/idea'
 alias intelij='LIBGL_ALWAYS_SOFTWARE=true LIBGL_KOPPER_DISABLE=true MESA_LOADER_DRIVER_OVERRIDE=nouveau idea'
 alias sway_cfg='vim $HOME/.config/sway/config'
 alias hypr_cfg='vim $HOME/.config/hypr/hyprland.conf'
