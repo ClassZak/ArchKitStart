@@ -11,11 +11,11 @@ if [[ $(tty) != /dev/tty* ]]; then
     exit 1
 fi
 
-echo "Starting sway ..."
+echo "Starting Hyprland ..."
 
 # Export enviroment variables
 export XDG_SESSION_TYPE=wayland
-export XDG_CURRENT_DESKTOP=sway
+export XDG_CURRENT_DESKTOP=hyprland
 export MOZ_ENABLE_WAYLAND=1
 
 # NVIDIA variables
@@ -24,17 +24,17 @@ export MOZ_ENABLE_WAYLAND=1
 # export __GLX_VENDOR_LIBRARY_NAME=nvidia
 
 # Logs directory
-LOG_DIR="$HOME/.local/share/sway"
+LOG_DIR="$HOME/.local/share/hypr"
 mkdir -p "$LOG_DIR" || {
     echo "Failed to create log dir: $LOG_DIR"
     exit 1
 }
 
 # Remove logs older 7 days
-find "$LOG_DIR" -name "sway_*.log" -type f -mtime +7 -delete 2>/dev/null
+find "$LOG_DIR" -name "hypr_*.log" -type f -mtime +7 -delete 2>/dev/null
 
-LOG_FILE="$LOG_DIR/sway_$(date +%Y.%m.%d_%H:%M:%S).log"
+LOG_FILE="$LOG_DIR/hypr_$(date +%Y.%m.%d_%H:%M:%S).log"
 echo "Log will saved in: $LOG_FILE"
 
-# Start sway throught dbus-run-session with logging
-exec dbus-run-session sway 2>&1 | tee "$LOG_FILE"
+# Start hypr throught dbus-run-session with logging
+exec dbus-run-session Hyprland 2>&1 | tee "$LOG_FILE"
