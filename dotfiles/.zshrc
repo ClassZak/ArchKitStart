@@ -148,7 +148,7 @@ alias sway_start='$HOME/.local/bin/sway-start.sh'
 alias hypr_start='$HOME/.local/bin/hypr-start.sh'
 # alias chromium='chromium --disable-gpu --disable-software-rasterizer --password-store=basic'
 # alias chromium='MESA_LOADER_DRIVER_OVERRIDE=nouveau chromium --disable-gpu --disable-software-rasterizer --password-store=basic'
-alias chromium='MESA_LOADER_DRIVER_OVERRIDE=nouveau chromium --disable-gpu --disable-software-rasterizer --password-store=basic --disable-features=Vulkan'
+alias chromium_launch='MESA_LOADER_DRIVER_OVERRIDE=nouveau chromium --disable-gpu --disable-software-rasterizer --password-store=basic --disable-features=Vulkan --ozone-platform=wayland --ozone-platform-hint=wayland'
 alias firefox='MESA_LOADER_DRIVER_OVERRIDE=nouveau firefox'
 # alias mysqlworkbench='MYSQL_WORKBENCH_NO_KEYRING=1 mysql-workbench'
 alias mysqlworkbench='MYSQL_WORKBENCH_NO_KEYRING=1 mysql-workbench LIBGL_ALWAYS_SOFTWARE=true LIBGL_KOPPER_DISABLE=true MESA_LOADER_DRIVER_OVERRIDE=nouveau '
@@ -157,7 +157,3 @@ alias duls='du -a --block-size=MiB --max-depth=1 | sort -n'
 
 # Load Angular CLI autocompletion.
 #source <(ng completion script)
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
