@@ -72,6 +72,7 @@
 #keyboard-state {
 	padding: 0 4px;
 	color: @default-color;
+	background-color: @default-background-color;
 	border-color: @default-border-color;
 }
 
@@ -289,7 +290,7 @@ label:focus {
 	margin-left: 5px;
 	padding: 0 4px;
 
-	background-color: transparent;
+	background-color: @default-background-color;
 	border-radius: 5px;
 
 	border-top: 1px solid @tray-top-border-color;
@@ -306,7 +307,7 @@ label:focus {
 
 #tray > .needs-attention {
 	-gtk-icon-effect: highlight;
-	background-color: #eb4d4b;
+	background-color: crimson;
 }
 
 
@@ -409,6 +410,7 @@ label:focus {
 	font-size: 2px;
 	padding: 0;
 	min-width: 1px;
+	color: wheat;
 }
 
 
