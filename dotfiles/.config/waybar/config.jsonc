@@ -7,7 +7,7 @@
 	// Choose the order of the modules
 	"modules-left": ["sway/workspaces","sway/mode","sway/scratchpad","custom/media"	],
 	"modules-center": ["sway/window"],
-	"modules-right": ["network","power-profiles-daemon","cpu","memory","temperature","backlight","battery","battery#bat2","tray", "custom/wlsunset", "pulseaudio","sway/language","keyboard-state","clock","custom/power"],
+	"modules-right": ["network","power-profiles-daemon","cpu","memory","tray","custom/wlsunset","temperature","backlight","battery","battery#bat2", "pulseaudio","sway/language","keyboard-state","clock","custom/power"],
 	// Modules configuration
 	 "sway/workspaces": {
 		 "disable-scroll": false,

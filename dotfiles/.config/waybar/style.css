@@ -1,9 +1,29 @@
+/* `otf-font-awesome` is required to be installed for icons */
+@define-color default-border-color wheat;
+@define-color default-color black;
+
+@define-color default-background-color #242424;
+
+
+@define-color tray-top-border-color #ef5c5c;
+@define-color tray-left-border-color #ef5c5c;
+@define-color tray-bottom-border-color #add8e6;
+@define-color tray-right-border-color #add8e6;
+
+@define-color sys-top-border-color @tray-top-border-color;
+@define-color sys-left-border-color @tray-left-border-color;
+@define-color sys-bottom-border-color @tray-bottom-border-color;
+@define-color sys-right-border-color @tray-right-border-color;
+
+
+
+
 * {
-	/* `otf-font-awesome` is required to be installed for icons */
 	min-height: 0;
 	font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
 	font-size: 10px;
 }
+
 
 /* set defualt styles */
 #battery,
@@ -21,8 +41,10 @@
 #language,
 #workspaces button {
 	padding: 0;
-	border: 1px solid #ff0000;
+	border: 1px solid @default-border-color;
 	margin: 0px;
+	color: @default-color;
+	min-width:40px;
 }
 
 
@@ -30,13 +52,13 @@
 
 #tray,
 #workspaces button {
+	min-width: 1px;
 	border-radius: 5px;
+	background-color: @default-background-color;
 }
-
-
-
-
-/**/
+#workspaces button {
+	min-width: 18px;
+}
 
 
 
@@ -47,11 +69,10 @@
 #clock,
 #language,
 #pulseaudio,
-#keyboard-state
-{
-	padding: 0 8px;
-	color: whitesmoke;
-	border-color: wheat;
+#keyboard-state {
+	padding: 0 4px;
+	color: @default-color;
+	border-color: @default-border-color;
 }
 
 
@@ -80,12 +101,9 @@ window#waybar.solo {
 }
 
 window#waybar.termite {
-	background-color: transparent}
-
-window#waybar.chromium {
-	background-color: transparent;
-	border: none;
+	background-color: transparent
 }
+
 
 button {
 	/* Use box-shadow instead of border so the text isn't offset */
@@ -98,7 +116,7 @@ button {
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
 button:hover {
 	background: inherit;
-	box-shadow: inset 0 -3px #ffffff;
+	box-shadow: inset 0 -3px white;
 }
 
 /* you can set a style on hover for any module like this */
@@ -107,7 +125,7 @@ button:hover {
 	box-shadow: inherit;
 	text-shadow: inherit;
 	border-color: #5f5;
-	color: black;
+	color: @default-color;
 }
 #workspaces button {
 	padding: 0 1px;
@@ -117,7 +135,7 @@ button:hover {
 }
 
 #workspaces button.focused {
-	color: black;
+	color: @default-color;
 	background-color: #773333;
 	border-color: #ff5555;
 }
@@ -132,7 +150,7 @@ button:hover {
 
 #mode {
 	background-color: #64727D;
-	box-shadow: inset 0 -3px #ffffff;
+	box-shadow: inset 0 -3px white;
 }
 
 /* If workspaces is the leftmost module, omit left margin */
@@ -146,26 +164,26 @@ button:hover {
 }
 
 #battery {
-	background-color: #ffffff;
-	color: #000000;
+	background-color: #8195c9;
+	color: @default-color
 }
 
 #battery.charging, #battery.plugged {
-	color: #ffffff;
+	color: white;
 	background-color: #26A65B;
 }
 
 @keyframes blink {
 	to {
-		background-color: #ffffff;
-		color: #000000;
+		background-color: white;
+		color: @default-color
 	}
 }
 
 /* Using steps() instead of linear as a timing function to limit cpu usage */
 #battery.critical:not(.charging) {
 	background-color: #f53c3c;
-	color: #ffffff;
+	color: white;
 	animation-name: blink;
 	animation-duration: 0.5s;
 	animation-timing-function: steps(12);
@@ -179,17 +197,17 @@ button:hover {
 
 #power-profiles-daemon.performance {
 	background-color: #f53c3c;
-	color: #ffffff;
+	color: white;
 }
 
 #power-profiles-daemon.balanced {
 	background-color: #2980b9;
-	color: #ffffff;
+	color: white;
 }
 
 #power-profiles-daemon.power-saver {
 	background-color: #2ecc71;
-	color: #000000;
+	color: @default-color
 }
 
 label:focus {
@@ -203,10 +221,10 @@ label:focus {
 #network,
 #memory,
 #cpu{
-	border-top: 2px solid #EF5C5C;
-	border-bottom: 2px solid #ADD8E6;
-	padding-left:5px;
-	padding-right:5px;
+	border-top: 2px solid @sys-top-border-color;
+	border-bottom: 2px solid @sys-bottom-border-color;
+	padding-left:2px;
+	padding-right:2px;
 	color: #111;
 }
 #cpu,
@@ -222,7 +240,7 @@ label:focus {
 #memory {
 	min-width: 110px;
 	background-color: #B99CDC;
-	border-right: 2px solid #ADD8E6;
+	border-right: 2px solid @sys-right-border-color;
 	border-top-right-radius: 5px;
 	border-bottom-right-radius: 5px;
 	margin-right: 5px;
@@ -231,7 +249,7 @@ label:focus {
 
 #network {
 	background-color: #74C7EC;
-	border-left: 2px solid #EF5C5C;
+	border-left: 2px solid @sys-left-border-color;
 	border-top-left-radius: 5px;
 	border-bottom-left-radius: 5px;
 }
@@ -266,16 +284,16 @@ label:focus {
 #tray {
 	margin-right: 5px;
 	margin-left: 5px;
-	padding: 0 8px;
+	padding: 0 4px;
 
 	background-color: transparent;
 	border-radius: 5px;
 
-	border-top: 1px solid #EF5C5C;
-	border-left: 1px solid #EF5C5C;
+	border-top: 1px solid @tray-top-border-color;
+	border-left: 1px solid @tray-left-border-color;
 
-	border-bottom: 1px solid #ADD8E6;
-	border-right: 1px solid #ADD8E6;
+	border-bottom: 1px solid @tray-bottom-border-color;
+	border-right: 1px solid @tray-right-border-color;
 	border-width: 2px;
 }
 
@@ -346,6 +364,7 @@ label:focus {
 	background-color: #242424;
 /*	font-size: 1rem;*/
 	padding: 0 4px;
+	min-width: 1px;
 }
 
 
@@ -353,8 +372,8 @@ label:focus {
 	background-color: #a37800;
 }
 #pulseaudio {
+	min-width: 90px;
 	background-color: #f1c40f;
-	color: black;
 }
 #pulseaudio.muted {
 	background-color: #90b1b1;
@@ -372,17 +391,21 @@ label:focus {
 #clock{
 	background-color: #5d5d5d;
 	min-width: 100px;
+	color: whitesmoke;
 }
 
 
 #custom-power{
 	background-color: crimson;
+	color: whitesmoke;
+	min-width: 12px;
 }
 
 
 #keyboard-state{
 	font-size: 2px;
 	padding: 0;
+	min-width: 1px;
 }
 
 
