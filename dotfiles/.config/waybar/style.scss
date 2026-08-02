@@ -1,4 +1,3 @@
-/* `otf-font-awesome` is required to be installed for icons */
 @define-color default-border-color wheat;
 @define-color default-color black;
 
@@ -14,16 +13,20 @@
 @define-color sys-left-border-color @tray-left-border-color;
 @define-color sys-bottom-border-color @tray-bottom-border-color;
 @define-color sys-right-border-color @tray-right-border-color;
+/*
+	border-top: 1px solid #EF5C5C;
+	border-left: 1px solid #EF5C5C;
 
-
-
+	border-bottom: 1px solid #ADD8E6;
+	border-right: 1px solid #ADD8E6;
+*/
 
 * {
+	/* `otf-font-awesome` is required to be installed for icons */
 	min-height: 0;
 	font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
 	font-size: 10px;
 }
-
 
 /* set defualt styles */
 #battery,
@@ -56,9 +59,11 @@
 	border-radius: 5px;
 	background-color: @default-background-color;
 }
-#workspaces button {
-	min-width: 18px;
-}
+
+
+
+
+/**/
 
 
 
@@ -69,8 +74,9 @@
 #clock,
 #language,
 #pulseaudio,
-#keyboard-state {
-	padding: 0 4px;
+#keyboard-state
+{
+	padding: 0 8px;
 	color: @default-color;
 	border-color: @default-border-color;
 }
@@ -101,9 +107,12 @@ window#waybar.solo {
 }
 
 window#waybar.termite {
-	background-color: transparent
-}
+	background-color: transparent}
 
+window#waybar.chromium {
+	background-color: transparent;
+	border: none;
+}
 
 button {
 	/* Use box-shadow instead of border so the text isn't offset */
@@ -164,9 +173,8 @@ button:hover {
 }
 
 #battery {
-	min-width: 44px;
-	background-color: #8195c9;
-	color: @default-color
+	background-color: white;
+	color: #000000;
 }
 
 #battery.charging, #battery.plugged {
@@ -177,7 +185,7 @@ button:hover {
 @keyframes blink {
 	to {
 		background-color: white;
-		color: @default-color
+		color: #000000;
 	}
 }
 
@@ -208,7 +216,7 @@ button:hover {
 
 #power-profiles-daemon.power-saver {
 	background-color: #2ecc71;
-	color: @default-color
+	color: #000000;
 }
 
 label:focus {
@@ -224,8 +232,8 @@ label:focus {
 #cpu{
 	border-top: 2px solid @sys-top-border-color;
 	border-bottom: 2px solid @sys-bottom-border-color;
-	padding-left:2px;
-	padding-right:2px;
+	padding-left:5px;
+	padding-right:5px;
 	color: #111;
 }
 #cpu,
@@ -263,7 +271,6 @@ label:focus {
 
 #backlight {
 	background-color: #90b1b1;
-	min-width: 44px;
 }
 #custom-media {
 	background-color: #66cc99;
@@ -276,7 +283,6 @@ label:focus {
 }
 
 #temperature {
-	min-width: 44px;
 	background-color: #f0932b;
 }
 
@@ -287,7 +293,7 @@ label:focus {
 #tray {
 	margin-right: 5px;
 	margin-left: 5px;
-	padding: 0 4px;
+	padding: 0 8px;
 
 	background-color: transparent;
 	border-radius: 5px;
@@ -375,7 +381,6 @@ label:focus {
 	background-color: #a37800;
 }
 #pulseaudio {
-	min-width: 90px;
 	background-color: #f1c40f;
 }
 #pulseaudio.muted {
@@ -401,7 +406,7 @@ label:focus {
 #custom-power{
 	background-color: crimson;
 	color: whitesmoke;
-	min-width: 12px;
+	min-width: 1px;
 }
 
 
