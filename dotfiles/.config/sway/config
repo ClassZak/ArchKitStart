@@ -18,7 +18,7 @@ set $term foot
 # Your preferred application launcher
 set $menu rofi
 # Your browsers
-set $browser1 chromium
+set $browser1 google-chrome-stable
 set $browser2 firefox
 
 ### Output configuration
@@ -30,6 +30,10 @@ client.urgent			#55ff55 #604760 #7f7f7f
 client.focused_inactive	#668ec0 #334760 #7f7f7f
 client.background		#334400 #333333 #dadada
 client.unfocused		#668ec0 #334760 #7f7f7f
+#
+#
+# Font configuration
+font pango:monospace 9
 #default_border pixel 1
 #default_floating_border pixel 1
 
@@ -55,13 +59,14 @@ exec swayidle -w timeout 300 'swaylock -f -c 000000' #\
 #
 # Example configuration:
 #
-#   input type:touchpad {
-#	   dwt enabled
-#	   tap enabled
-#	   natural_scroll enabled
-#	   middle_emulation enabled
-#   }
-#
+input "type:touchpad" {
+    tap enabled
+    natural_scroll enabled
+    middle_emulation enabled
+    pointer_accel 0.2
+    click_method clickfinger
+    drag enabled
+}
 input type:keyboard {
 	xkb_layout us,ru
 	xkb_options grp:lalt_lshift_toggle
@@ -275,6 +280,8 @@ for_window [title="Open File"] floating enable
 for_window [title="Save File"] floating enable
 for_window [class="Matplotlib"] floating enable
 for_window [title="Figure*"] floating enable
+for_window [class="X-AIR-Edit"] floating enable
+for_window [title="."] title_format "<b>%title</b> <span foreground='#F53C3C'><i>%app_id</i></span>"
 
 
 ## Transparent Windows
