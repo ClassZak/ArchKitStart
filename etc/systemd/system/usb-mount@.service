@@ -6,12 +6,5 @@ After=blockdev@%i.target
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/usr/bin/bash -c '\
-	/usr/bin/mkdir -p /mnt/usb/%i && \
-	/usr/bin/mount /dev/%i /mnt/usb/%i'
-ExecStop=/usr/bin/bash -c '\
-	umount /mnt/usb/%i && \
-	rmdir /mnt/usb/%i || echo "error for removing /mnt/usb/%i"'
-
-
-
+ExecStart=/usr/local/bin/usb-mount.sh %i
+ExecStop=/usr/local/bin/usb-umount.sh %i
