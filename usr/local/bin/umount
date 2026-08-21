@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Umount wrapper for notification
+rc=1
+for arg in "$@"; do
+	if [[ "$arg" == /dev/* ]]; then
+		# Find mount point if device name in argument
+		mp=$(findmnt -rn -S "$arg" -o TARGET 2>/dev/null | head -n1)
+	else
+		mp="$arg"
+	fi
+	
+	if [[ "$mp" == /mnt/usb/* ]]; then
+		dev="${mp##*/}"
+		/usr/bin/umount "$@"
+		rc=$?
+		if [ $rc -eq 0 ]; then
+			/usr/local/bin/notify-all-users.sh "USB umounted" "Device $dev successfuly umounted. You can remove it safely."
+			break
+		fi
+	fi
+done
+
+exit $rc
