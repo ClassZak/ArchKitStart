@@ -105,6 +105,7 @@ export QT_STYLE_OVERRIDE=kvantum
 export WLR_NO_HARDWARE_CURSORS=1
 export TERMINAL=foot
 #export XDG_CURRENT_DESKTOP=sway
+export GTK_THEME=Adwaita:dark
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8

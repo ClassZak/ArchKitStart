@@ -261,6 +261,7 @@ exec export __GLX_VENDOR_LIBRARY_NAME=nvidia
 #exec export GBM_BACKEND=nvidia-drm
 exec export WLR_NO_HARDWARE_CURSORS=1
 exec export XDG_CURRENT_DESKTOP=sway
+exec export GTK_THEME=Adwaita:dark
 #eval $(/usr/bin/gnome-keyring-daemon --start --components=secrets)
 #exec_always multibg-wayland --gpu $HOME/wallpapers/ ; systemctl --user import-environment WAYLAND_DISPLAY ; $HOME/\.local/bin/wlsunset-on.sh
 exec_always multibg-wayland --gpu $HOME/wallpapers/ &
@@ -282,6 +283,7 @@ for_window [class="Matplotlib"] floating enable
 for_window [title="Figure*"] floating enable
 for_window [class="X-AIR-Edit"] floating enable
 for_window [title="."] title_format "<b>%title</b> <span foreground='#F53C3C'><i>%app_id</i></span>"
+for_window [title="rufus"] floating enable
 
 
 ## Transparent Windows
