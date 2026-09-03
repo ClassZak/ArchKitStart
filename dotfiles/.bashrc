@@ -20,6 +20,9 @@ alias chromium='MESA_LOADER_DRIVER_OVERRIDE=nouveau chromium --disable-gpu --dis
 alias firefox='MESA_LOADER_DRIVER_OVERRIDE=nouveau firefox'
 alias mysqlworkbench='MYSQL_WORKBENCH_NO_KEYRING=1 mysql-workbench'
 alias prismlauncher='export GDK_BACKEND=wayland,x11 ; export QT_QPA_PLATFORM=wayland;prismlauncher'
+alias duls='du -a --block-size=MiB --max-depth=1 | sort -n'
+alias shutdown='sudo pkill -15 chrome || sudo pkill -15 chromium || shutdown'
+alias reboot='sudo pkill -15 chrome || sudo pkill -15 chromium || reboot'
 
 #export MESA_LOADER_DRIVER_OVERRIDE=nouveau
 export GALLIUM_DRIVER=llvmpipe
