@@ -280,6 +280,7 @@ for_window [app_id="feh"] floating enable
 for_window [title="Open Folder"] floating enable
 for_window [title="Open File"] floating enable
 for_window [title="Save File"] floating enable
+for_window [title="Deleting"] floating enable
 for_window [class="Matplotlib"] floating enable
 for_window [title="Figure*"] floating enable
 for_window [class="X-AIR-Edit"] floating enable
