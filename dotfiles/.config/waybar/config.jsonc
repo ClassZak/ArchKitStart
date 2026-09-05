@@ -59,12 +59,6 @@
 	"sway/mode": {
 		"format": "<span style=\"italic\">{}</span>"
 	},
-  "sway/language": {
-    "on-click": "swaymsg input type:keyboard xkb_switch_layout next",
-    "format": "{}",
-    "tooltip": true
-  },
-
 "custom/swaync": {
     "tooltip": true,
     "format": "{icon}",
@@ -85,6 +79,12 @@
     "on-click-right": "swaync-client -d -sw",
     "escape": true
   },
+  "sway/language": {
+    "on-click": "swaymsg input type:keyboard xkb_switch_layout next",
+    "format": "{}",
+    "tooltip": true
+  },
+
 "custom/bluetooth": {
     "format": "",
     "format-disabled": "",
@@ -243,13 +243,13 @@
 		"menu": "on-click",
 		"menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu file in resources folder
 		"menu-actions": {
-			"shutdown": "shutdown",
+			"shutdown": "pkill -15 chrome ; pkill -15 chromium ; shutdown",
 			"shutdown-c": "shutdown -c",
-			"reboot": "reboot",
+			"reboot": "pkill -15 chrome ; pkill -15 chromium ; reboot",
 			"suspend": "systemctl suspend",
 			"lock": "swaylock -f -c 000000",
 			"hibernate": "systemctl hibernate",
-			"logout": "sway exit",
+			"logout": "pkill -15 chrome ; pkill -15 chromium ; swaymsg exit",
 			"rofi": "rofi -show run"
 		}
 	}
