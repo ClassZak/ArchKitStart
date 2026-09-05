@@ -23,6 +23,7 @@ alias prismlauncher='export GDK_BACKEND=wayland,x11 ; export QT_QPA_PLATFORM=way
 alias duls='du -a --block-size=MiB --max-depth=1 | sort -n'
 alias shutdown='sudo pkill -15 chrome ; sudo pkill -15 chromium ; shutdown'
 alias reboot='sudo pkill -15 chrome ; sudo pkill -15 chromium ; reboot'
+alias kill_chrome='sudo pkill -15 chrome ; sudo pkill -15 chromium'
 
 #export MESA_LOADER_DRIVER_OVERRIDE=nouveau
 export GALLIUM_DRIVER=llvmpipe
@@ -32,6 +33,7 @@ export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 export __GLX_VENDOR_LIBRARY_NAME=nvidia
 export QT_QPA_PLATFORMTHEME=qt5ct
 export QT_STYLE_OVERRIDE=kvantum
+export EDITOR=vim
 
 export WLR_NO_HARDWARE_CURSORS=1
 export NVM_DIR="$HOME/.nvm"

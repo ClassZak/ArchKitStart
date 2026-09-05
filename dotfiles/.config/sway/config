@@ -24,12 +24,13 @@ set $browser2 firefox
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg #303030 solid_color
-client.focused			#55ff55 #337733 #000000
-client.urgent			#55ff55 #604760 #7f7f7f
-client.focused_inactive	#668ec0 #334760 #7f7f7f
-client.background		#334400 #333333 #dadada
-client.unfocused		#668ec0 #334760 #7f7f7f
+output eDP-1 pos 0 0 res 1920x1080 bg #303030 solid_color
+output HDMI-A-1 pos 1920 0 res 1920x1080 bg #303030 solid_color
+client.focused			#55ff55 #337733 #000000 #ffffff
+client.urgent			#55ff55 #604760 #7f7f7f #ffffff
+client.focused_inactive	#668ec0 #334760 #7f7f7f #ffffff
+client.background		#334400 #333333 #dadada #ffffff
+client.unfocused		#668ec0 #334760 #7f7f7f #ffffff
 #
 #
 # Font configuration
@@ -47,7 +48,7 @@ font pango:monospace 9
 #
 # Example configuration:
 #
-exec swayidle -w timeout 300 'swaylock -f -c 000000' #\
+#exec swayidle -w timeout 300 'swaylock -f -c 000000' #\
 #		  timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
 #		  before-sleep 'swaylock -f -c 000000'
 #
@@ -190,7 +191,7 @@ input type:keyboard {
 	# Show the next scratchpad window or hide the focused scratchpad window.
 	# If there are multiple scratchpad windows, this command cycles through them.
 	bindsym --to-code $mod+minus scratchpad show
-#
+
 # Resizing containers:
 #
 mode "resize" {
@@ -284,6 +285,7 @@ for_window [title="Figure*"] floating enable
 for_window [class="X-AIR-Edit"] floating enable
 for_window [title="."] title_format "<b>%title</b> <span foreground='#F53C3C'><i>%app_id</i></span>"
 for_window [title="rufus"] floating enable
+for_window [title="Bluetooth Devices"] floating enable
 
 
 ## Transparent Windows

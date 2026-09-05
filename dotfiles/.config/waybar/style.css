@@ -1,6 +1,7 @@
 /* `otf-font-awesome` is required to be installed for icons */
 @define-color default-border-color wheat;
 @define-color default-color black;
+@define-color default-color-light whitesmoke;
 
 @define-color default-background-color #242424;
 
@@ -20,8 +21,8 @@
 
 * {
 	min-height: 0;
-	font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
 	font-size: 10px;
+	font-family: JetBrains Mono Font, Awesome, Roboto, Helvetica, Arial, sans-serif;
 }
 
 
@@ -35,8 +36,9 @@
 #custom-notification,
 #backlight,
 #disk,
-#bluetooth,
+#custom-bluetooth,
 #custom-power,
+#custom-swaync,
 #keyboard-state,
 #language,
 #workspaces button {
@@ -44,6 +46,7 @@
 	border: 1px solid @default-border-color;
 	margin: 0px;
 	color: @default-color;
+	background-color: @default-background-color;
 	min-width:40px;
 }
 
@@ -55,6 +58,7 @@
 	min-width: 1px;
 	border-radius: 5px;
 	background-color: @default-background-color;
+	color: @default-color;
 }
 #workspaces button {
 	min-width: 18px;
@@ -254,6 +258,8 @@ label:focus {
 	border-left: 2px solid @sys-left-border-color;
 	border-top-left-radius: 5px;
 	border-bottom-left-radius: 5px;
+	padding-left: 4px;
+	padding-right: 8px;
 }
 #network.disconnected {
 	background-color: #773333;
@@ -292,6 +298,7 @@ label:focus {
 
 	background-color: @default-background-color;
 	border-radius: 5px;
+	color: @default-color-light;
 
 	border-top: 1px solid @tray-top-border-color;
 	border-left: 1px solid @tray-left-border-color;
@@ -364,11 +371,24 @@ label:focus {
 #custom-wlsunset {
 	margin-left: 5px;
 	margin-right: 0;
-	color: whitesmoke;
-	background-color: #242424;
-/*	font-size: 1rem;*/
+	color: @default-color-light;
 	padding: 0 4px;
 	min-width: 1px;
+}
+
+
+#custom-swaync {
+	padding-right: 2px;
+	min-width: 20px;
+	font-weight: bold;
+	color: @default-color-light
+}
+
+
+#custom-bluetooth {
+	color: @default-color-light;
+	padding: 0 4px;
+	min-width: 12px;
 }
 
 

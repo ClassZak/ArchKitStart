@@ -106,6 +106,7 @@ export WLR_NO_HARDWARE_CURSORS=1
 export TERMINAL=foot
 #export XDG_CURRENT_DESKTOP=sway
 export GTK_THEME=Adwaita:dark
+export EDITOR=vim /home/zak/repositories/ClassZak/ArchKitStart/dotfiles/.bashrc
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -157,5 +158,6 @@ alias prismlauncher='export GDK_BACKEND=wayland,x11 ; export QT_QPA_PLATFORM=way
 alias duls='du -a --block-size=MiB --max-depth=1 | sort -n'
 alias shutdown='sudo pkill -15 chrome ; sudo pkill -15 chromium ; shutdown'
 alias reboot='sudo pkill -15 chrome ; sudo pkill -15 chromium ; reboot'
+alias kill_chrome='sudo pkill -15 chrome ; sudo pkill -15 chromium'
 # Load Angular CLI autocompletion.
 #source <(ng completion script)
