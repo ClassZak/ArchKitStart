@@ -167,4 +167,4 @@ configuration {
   }
 }
 
-@theme "/usr/share/rofi/themes/gruvbox-dark-hard.rasi"
+@theme "~/.config/themes/default/rofi/default.rasi"

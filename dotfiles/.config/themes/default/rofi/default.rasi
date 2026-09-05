@@ -1,0 +1,77 @@
+configuration {
+    font:                       "JetBrains Mono 9";
+}
+
+* {
+    bg0:                        #242424;
+    bg5:                        #5a524c;
+    fg1:                        whitesmoke;
+    orange:                     #e78a4e;
+	--orange:                   @orange;
+    background-color :          transparent;
+    text-color:                 @fg1;
+}
+
+window {
+    border:                     2px;
+    border-color:               @orange;
+    border-radius:              4px;
+    background-color:           @bg0;
+}
+
+mainbox {
+    orientation:                vertical;
+	background-image:           linear-gradient(to left, black/10%, #c76a2e, black/10%);
+    spacing:                    0px;
+    children:                   [ "image", "inputbar", "listview" ];
+}
+
+image {
+    background-image:           url("~/.config/rofi/images/rofi-image.jpg", width);
+    border:                     0 0 2px 0;
+    border-color:               @orange;
+}
+
+inputbar {
+    orientation:                horizontal;
+    children:                   [ "entry" ];
+    padding:                    2px;
+    border:                     0 0 2px 0;
+    border-color:               @orange;
+    background-color:           @bg0;
+}
+
+entry {
+    cursor:                     text;
+    placeholder:                "Search";
+}
+
+listview {
+    layout:                     vertical;
+    columns:                    3;
+    lines:                      16;
+}
+
+element {
+    border:                     1px;
+    border-color:               gray;
+    border-radius:              4px;
+    color:                      red;
+    margin:                     1px;
+    padding:                    2px;
+    spacing:                    2px;
+}
+
+element selected {
+	border-width: 2px;
+    background-color:           @bg5;
+}
+
+element-text {
+    vertical-align:             0.5;
+    horizontal-align:           0.0;
+}
+
+error-message {
+    padding: 6px;
+}
