@@ -106,7 +106,7 @@ export WLR_NO_HARDWARE_CURSORS=1
 export TERMINAL=foot
 #export XDG_CURRENT_DESKTOP=sway
 export GTK_THEME=Adwaita:dark
-export EDITOR=vim /home/zak/repositories/ClassZak/ArchKitStart/dotfiles/.bashrc
+export EDITOR=vim
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
