@@ -1,2 +1,3 @@
 #!/bin/bash
-killall wlsunset
+killall wlsunset 2>/dev/null
+exit 0

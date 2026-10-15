@@ -1,7 +1,8 @@
 [Unit]
-Description=Disable wlsunset (day mode)
+Description=Day mode: kill wlsunset
 After=graphical-session.target
+Conflicts=wlsunset-night.service
 
 [Service]
 Type=oneshot
-ExecStart=/home/zak/.local/bin/wlsunset-day.sh
+ExecStart=%h/.local/bin/wlsunset-day.sh

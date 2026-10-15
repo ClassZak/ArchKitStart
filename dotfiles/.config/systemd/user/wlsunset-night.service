@@ -1,13 +1,10 @@
 [Unit]
-Description=Night mode for wlsunset (3500K)
+Description=Night mode wlsunset (kill + start)
 After=graphical-session.target
-Requires=graphical-session.target
+Conflicts=wlsunset-day.service
 
 [Service]
 Type=exec
-ExecStart=/home/zak/.local/bin/wlsunset-night.sh
-ExexStopPost=/home/zak/.local/bin/wlsunset-off.sh
+ExecStart=%h/.local/bin/wlsunset-night.sh
+KillMode=control-group
 Restart=no
-
-[Install]
-WantedBy=graphical-session.target
