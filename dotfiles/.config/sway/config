@@ -267,7 +267,7 @@ exec export GTK_THEME=Adwaita:dark
 #exec_always multibg-wayland --gpu $HOME/wallpapers/ ; systemctl --user import-environment WAYLAND_DISPLAY ; $HOME/\.local/bin/wlsunset-on.sh
 exec_always multibg-wayland --gpu $HOME/wallpapers/ &
 exec_always systemctl --user import-environment WAYLAND_DISPLAY DBUS_SESSION_BUS_ADDRESS
-exec_always systemctl --user start wlsunset-night.service
+exec_always $HOME/.local/bin/wlsunset-startup.sh
 xwayland enable
 
 #
