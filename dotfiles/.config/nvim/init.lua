@@ -1,20 +1,20 @@
 --[[
-    Neovim config: отладка C/C++ (одиночные файлы, CMake), Python, Lua, SQL
-    - Лидер: пробел
+    Neovim config: C/C++ debugging (single files, CMake), Python, Lua, SQL
+    - Leader: space
     - LSP: clangd, pyright, lua_ls, sqls (Mason)
-    - Отладка: nvim-dap (codelldb, debugpy, local-lua-debugger)
-    - F5 – меню выбора конфигурации отладки
-    - Буфер обмена: "+y, "+p, <leader>y, <leader>p
-    - Русская раскладка (физическая ЙЦУКЕН)
-    - Подсветка: уникальные цвета для всех групп Treesitter (в т.ч. Python, Lua, SQL)
-    - Плагины: подсветка вхождений слова, разноцветные скобки
+    - Debugging: nvim-dap (codelldb, debugpy, local-lua-debugger)
+    - F5 – debug configuration selection menu
+    - Clipboard: "+y, "+p, <leader>y, <leader>p
+    - Russian keyboard layout (physical JCUKEN)
+    - Highlighting: unique colors for all Treesitter groups (including Python, Lua, SQL)
+    - Plugins: word occurrence highlighting, rainbow brackets
 --]]
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 ------------------------------------------------------------------------------
--- 1. БАЗОВЫЕ НАСТРОЙКИ
+-- 1. BASIC SETTINGS
 ------------------------------------------------------------------------------
 vim.opt.number = true
 vim.opt.numberwidth = 6
@@ -43,11 +43,11 @@ vim.opt.autoindent = true
 vim.opt.cindent = true
 vim.opt.smartindent = true
 
--- Отключаем старый Vim‑синтаксис (будем использовать Treesitter)
+-- Disable legacy Vim syntax (we'll use Treesitter)
 vim.opt.syntax = 'off'
 vim.cmd('syntax off')
 
--- Ассоциации файлов
+-- File associations
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
     pattern = { '*.c', '*.h' },
     callback = function() vim.bo.filetype = 'c' end,
@@ -87,7 +87,7 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
     pattern = { '*.ts', '*.tsx', '*.cts', '*.mts' },
     command = 'set filetype=typescript',
 })
--- HTML/CSS (Neovim определяет автоматически, но можно для надёжности)
+-- HTML/CSS (Neovim detects automatically, but for reliability)
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
     pattern = { '*.html', '*.htm' },
     command = 'set filetype=html',
@@ -108,7 +108,7 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 })
 -- JSON
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-   pattern = { '*.json', },
+   pattern = '*.json',
    command = 'set filetype=json',
 })
 vim.opt.backup = false
@@ -119,11 +119,11 @@ if vim.fn.has('termguicolors') == 1 then
     vim.opt.termguicolors = true
 end
 
--- Русская раскладка (ЙЦУКЕН)
+-- Russian keyboard layout (JCUKEN)
 vim.opt.langmap = 'ФИСВУАПРШОЛДЖЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKL:MNOPQRSTUVWXYZ,фисвуапршолджьтщзйкыегмцчня;abcdefghijkl:mnopqrstuvwxyz'
 
 ------------------------------------------------------------------------------
--- 2. МАППИНГИ
+-- 2. MAPPINGS
 ------------------------------------------------------------------------------
 local map = vim.keymap.set
 map('n', '<Esc>', '<cmd>nohlsearch<CR>')
@@ -138,13 +138,13 @@ map('n', '[g', vim.diagnostic.goto_prev, { desc = 'Prev diagnostic' })
 map('n', ']g', vim.diagnostic.goto_next, { desc = 'Next diagnostic' })
 map('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Diagnostic quickfix' })
 
--- Буфер обмена
+-- Clipboard
 map({ 'n', 'v' }, '<leader>y', '"+y', { desc = 'Copy to system clipboard' })
 map({ 'n', 'v' }, '<leader>p', '"+p', { desc = 'Paste from system clipboard' })
 map({ 'n', 'v' }, '<leader>P', '"+P', { desc = 'Paste before from system clipboard' })
 
 ------------------------------------------------------------------------------
--- 3. МЕНЕДЖЕР ПЛАГИНОВ lazy.nvim
+-- 3. PLUGIN MANAGER lazy.nvim
 ------------------------------------------------------------------------------
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
@@ -160,15 +160,16 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-    -- Файловый менеджер
+    -- File manager
     {
         'nvim-tree/nvim-tree.lua',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
         keys = { { '<C-S-e>', '<cmd>NvimTreeToggle<CR>', desc = 'Toggle file tree' } },
         opts = {},
     },
-	{ "mileszs/ack.vim" },
-    -- ==================== TREESITTER (ОСНОВНАЯ ПОДСВЕТКА) ====================
+    { "mileszs/ack.vim" },
+
+    -- ==================== TREESITTER ====================
     {
         'nvim-treesitter/nvim-treesitter',
 		lazy = false,
@@ -189,7 +190,7 @@ require('lazy').setup({
         end,
     },
 
-    -- ==================== LSP + MASON (ДОБАВЛЕНЫ PYTHON, LUA, SQL) ====================
+    -- ==================== LSP + MASON ====================
     {
         'neovim/nvim-lspconfig',
         dependencies = {
@@ -204,21 +205,21 @@ require('lazy').setup({
                     'clangd',      -- C/C++
                     'pyright',     -- Python
                     'lua_ls',      -- Lua
-                    'sqls',       -- SQL
+                    'sqls',        -- SQL
 					'rust_analyzer',
 					'ts_ls',
 					'html',
 					'cssls',
 					'jdtls',
 					'asm_lsp',
-					'jsonls'
+					'jsonls',
                 },
                 automatic_installation = true,
                 handlers = {
                     function(server_name)
                         local opts = { capabilities = require('cmp_nvim_lsp').default_capabilities() }
 
-                        -- Индивидуальные настройки серверов
+						-- Custom server settings
                         if server_name == 'clangd' then
                             opts.cmd = {
                                 'clangd', '--background-index', '--clang-tidy',
@@ -226,44 +227,39 @@ require('lazy').setup({
                                 '--query-driver=/usr/bin/g++'
                             }
                         elseif server_name == 'pyright' then
-                            -- Можно указать путь к виртуальному окружению, если нужно
-                            -- opts.settings = { python = { pythonPath = vim.fn.getcwd() .. '/venv/bin/python' } }
-elseif server_name == 'lua_ls' then
-    local cc_defs = vim.fn.expand("~/repositories/Sumneko/CC-Tweaked")  -- ПУТЬ К ВАШЕЙ ПАПКЕ
-    opts.settings = {
-        Lua = {
-            runtime = { version = 'LuaJIT' },
-            diagnostics = { globals = { "vim" } },
-            workspace = {
-                library = {
-                    vim.api.nvim_get_runtime_file("", true),   -- стандартная библиотека Neovim
-                    cc_defs,                                   -- ваши определения CC
-                },
-                -- Чтобы LSP не ругался на другие файлы в этой папке
-                ignoreDir = { ".git", "build" },
-            },
-            telemetry = { enable = false },
-        }
-    }
-						elseif server_name == 'sqls' then
-						    opts.settings = {
-						        sqls = {
-						            connections = {
-						                {
-						                    driver = 'mysql',
-						                    dataSourceName = ':memory:',
-						                },
-						            },
-						        },
-						    }
-						end
+                            -- optional: configure python path
+                        elseif server_name == 'lua_ls' then
+                            local cc_defs = vim.fn.expand("~/repositories/Sumneko/CC-Tweaked")
+                            opts.settings = {
+                                Lua = {
+                                    runtime = { version = 'LuaJIT' },
+                                    diagnostics = { globals = { "vim" } },
+                                    workspace = {
+                                        library = {
+                                            vim.api.nvim_get_runtime_file("", true),
+                                            cc_defs,
+                                        },
+                                        ignoreDir = { ".git", "build" },
+                                    },
+                                    telemetry = { enable = false },
+                                }
+                            }
+                        elseif server_name == 'sqls' then
+                            opts.settings = {
+                                sqls = {
+                                    connections = {
+                                        { driver = 'mysql', dataSourceName = ':memory:' },
+                                    },
+                                },
+                            }
+                        end
 
                         require('lspconfig')[server_name].setup(opts)
                     end,
                 },
             })
 
-            -- LSP attach автокоманды
+            -- LSP attach autocmds
             vim.api.nvim_create_autocmd('LspAttach', {
                 group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
                 callback = function(args)
@@ -306,7 +302,7 @@ elseif server_name == 'lua_ls' then
         end,
     },
 
-    -- Автодополнение
+    -- Autocompletion
     {
         'hrsh7th/nvim-cmp',
         dependencies = {
@@ -360,7 +356,7 @@ elseif server_name == 'lua_ls' then
         config = function() require('telescope').setup() end,
     },
 
-    -- Статусная строка
+    -- Status line
     {
         'nvim-lualine/lualine.nvim',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
@@ -371,7 +367,7 @@ elseif server_name == 'lua_ls' then
     { 'tpope/vim-fugitive' },
     { 'lewis6991/gitsigns.nvim', opts = {} },
 
-    -- Цветовая схема
+    -- Color scheme
     {
         'navarasu/onedark.nvim',
         priority = 1000,
@@ -381,14 +377,14 @@ elseif server_name == 'lua_ls' then
         end,
     },
 
-    -- CMake tools (для C++)
+    -- CMake tools
     {
         'Civitasv/cmake-tools.nvim',
         dependencies = { 'nvim-lua/plenary.nvim' },
         opts = {},
     },
 
-    -- ==================== ОТЛАДКА (DAP) – C/C++, PYTHON, LUA ====================
+    -- ==================== DEBUGGING (DAP) ====================
     {
         'mfussenegger/nvim-dap',
         dependencies = {
@@ -405,7 +401,7 @@ elseif server_name == 'lua_ls' then
             dap.listeners.before.event_terminated['dapui_config'] = dapui.close
             dap.listeners.before.event_exited['dapui_config'] = dapui.close
 
-            -- Горячие клавиши отладки
+            -- Keymaps
             vim.keymap.set('n', '<F5>', function() dap.continue() end, { desc = 'Debug: Start/Continue' })
             vim.keymap.set('n', '<F10>', dap.step_over, { desc = 'Debug: Step Over' })
             vim.keymap.set('n', '<F11>', dap.step_into, { desc = 'Debug: Step Into' })
@@ -417,10 +413,8 @@ elseif server_name == 'lua_ls' then
             vim.keymap.set('n', '<leader>dr', dap.repl.open, { desc = 'Open REPL' })
             vim.keymap.set('n', '<leader>dl', dap.run_last, { desc = 'Run last debug config' })
 
-            -- Адаптеры отладки
-            -- 
-			-- local codelldb_path = mason_registry.get_package('codelldb'):get_install_path() .. '/extension/adapter/codelldb'
-			local codelldb_path = vim.fn.stdpath('data')  .. '/mason/packages/codelldb/extension/adapter/codelldb'
+            -- ===== KEY FIX: path to codelldb via Mason bin =====
+            local codelldb_path = vim.fn.stdpath('data') .. '/mason/bin/codelldb'
             dap.adapters.codelldb = {
                 type = 'server',
                 port = '${port}',
@@ -433,8 +427,6 @@ elseif server_name == 'lua_ls' then
                 args = { '-m', 'debugpy.adapter' },
             }
 
-            -- Для Lua используем адаптер local-lua-debugger-vscode (должен быть установлен через Mason)
-            -- local lua_debugger_path = mason_registry.get_package('lua-debugger'):get_install_path() .. '/extension/debugAdapter.lua'
 			local lua_debugger_path = vim.fn.stdpath('data') .. '/mason/packages/lua-debugger/extension/debugAdapter.lua'
             dap.adapters.lua = {
                 type = 'server',
@@ -443,7 +435,7 @@ elseif server_name == 'lua_ls' then
                 executable = { command = 'lua', args = { lua_debugger_path } },
             }
 
-            -- Вспомогательные функции
+            -- Helper compilation function (as in original)
             local function compile_current_file_cpp()
                 local filename = vim.fn.expand('%:t')
                 local current_dir = vim.fn.getcwd()
@@ -465,14 +457,14 @@ elseif server_name == 'lua_ls' then
                 if result ~= 0 then
                     local info_lines = {
                         "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-                        "❌ Ошибка компиляции",
+                        "❌ Compilation error",
                         "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-                        "📁 Рабочая директория: " .. current_dir,
-                        "📁 Выходная директория:" .. outdir,
-                        "📄 Исходный файл:      " .. filename,
-                        "💾 Выходной файл:      " .. outfile,
-                        "💾 Имя выходного файла:" .. filebase,
-                        "🔧 Команда:            " .. cmd,
+                        "📁 Working directory:  " .. current_dir,
+                        "📁 Output directory:   " .. outdir,
+                        "📄 Source file:        " .. filename,
+                        "💾 Output file:        " .. outfile,
+                        "💾 Output file name:   " .. filebase,
+                        "🔧 Command:            " .. cmd,
                         "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
                         "",
                     }
@@ -488,7 +480,7 @@ elseif server_name == 'lua_ls' then
                         row = 5,
                         col = math.floor(vim.o.columns * 0.05),
                         border = 'rounded',
-                        title = ' Компиляция ' .. filename,
+                        title = ' Compilation ' .. filename,
                         title_pos = 'center',
                     })
                     local buf = vim.api.nvim_create_buf(false, true)
@@ -499,14 +491,14 @@ elseif server_name == 'lua_ls' then
                     return nil
                 end
 
-                print("✅ Скомпилировано: " .. outfile)
+                print("✅ Compiled: " .. outfile)
                 return outfile
             end
 
-            -- Конфигурации отладки для разных языков
+            -- Debug configurations
             dap.configurations.cpp = {
                 {
-                    name = "▶️ Собрать и отладить текущий файл (g++)",
+                    name = "▶️ Build and debug current file (g++)",
                     type = "codelldb",
                     request = "launch",
                     program = function() return compile_current_file_cpp() end,
@@ -515,7 +507,7 @@ elseif server_name == 'lua_ls' then
                     runInTerminal = false,
                 },
                 {
-                    name = "📁 Запустить произвольный исполняемый файл",
+                    name = "📁 Run arbitrary executable",
                     type = "codelldb",
                     request = "launch",
                     program = function()
@@ -527,7 +519,7 @@ elseif server_name == 'lua_ls' then
                     runInTerminal = false,
                 },
 				{
-					name = "🔗 Подключиться к процессу (codelldb)",
+					name = "🔗 Attach to process (codelldb)",
 					type = "codelldb",
 					request = "attach",
 					pid = require("dap.utils").pick_process,
@@ -537,7 +529,7 @@ elseif server_name == 'lua_ls' then
 					},
 				},
                 {
-                    name = "🔨 Запустить цель CMake (из build/)",
+                    name = "🔨 Run CMake target (from build/)",
                     type = "codelldb",
                     request = "launch",
                     program = function()
@@ -548,7 +540,7 @@ elseif server_name == 'lua_ls' then
                             prog = prog .. ".exe"
                         end
                         if vim.fn.filereadable(prog) == 0 then
-                            print("Файл не найден: " .. prog)
+                            print("File not found: " .. prog)
                             return nil
                         end
                         return prog
@@ -562,12 +554,11 @@ elseif server_name == 'lua_ls' then
 
             dap.configurations.python = {
                 {
-                    name = "🐍 Запустить текущий Python файл",
+                    name = "🐍 Run current Python file",
                     type = "python",
                     request = "launch",
                     program = "${file}",
                     pythonPath = function()
-                        -- Попробуем найти виртуальное окружение
                         local venv_python = vim.fn.getcwd() .. "/venv/bin/python"
                         if vim.fn.executable(venv_python) == 1 then
                             return venv_python
@@ -579,12 +570,12 @@ elseif server_name == 'lua_ls' then
                     justMyCode = false,
                 },
                 {
-                    name = "🐍 Отладка с аргументами",
+                    name = "🐍 Debug with arguments",
                     type = "python",
                     request = "launch",
                     program = "${file}",
                     args = function()
-                        local args_str = vim.fn.input("Аргументы командной строки: ")
+                        local args_str = vim.fn.input("Command-line arguments: ")
                         return vim.split(args_str, " ")
                     end,
                     pythonPath = function()
@@ -602,7 +593,7 @@ elseif server_name == 'lua_ls' then
 
             dap.configurations.lua = {
                 {
-                    name = "🌙 Запустить текущий Lua файл",
+                    name = "🌙 Run current Lua file",
                     type = "lua",
                     request = "launch",
                     program = "${file}",
@@ -613,10 +604,10 @@ elseif server_name == 'lua_ls' then
         end,
     },
 
-    -- UI для отладки
+    -- Debug UI
     {
         'rcarriga/nvim-dap-ui',
-        dependencies = { 'mfussenegger/nvim-dap', 'nvim-nio' },
+        dependencies = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio' },
         config = function()
             require('dapui').setup({
                 layouts = {
@@ -645,13 +636,13 @@ elseif server_name == 'lua_ls' then
         end,
     },
 
-    -- Виртуальный текст (значения переменных)
+    -- Virtual text (variable values)
     {
         'theHamsta/nvim-dap-virtual-text',
         config = function() require('nvim-dap-virtual-text').setup() end,
     },
 
-    -- Установка адаптеров отладки через Mason
+    -- Install debug adapters via Mason
     {
         'jay-babu/mason-nvim-dap.nvim',
         dependencies = { 'williamboman/mason.nvim', 'mfussenegger/nvim-dap' },
@@ -659,13 +650,13 @@ elseif server_name == 'lua_ls' then
             ensure_installed = {
                 'codelldb',      -- C/C++/Rust
                 'debugpy',       -- Python
-                'lua-debugger',  -- Lua (local-lua-debugger-vscode)
+                'lua-debugger',  -- Lua
             },
             automatic_installation = true,
         },
     },
 
-    -- Удобный просмотр диагностики
+    -- Diagnostics
     {
         'folke/trouble.nvim',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
@@ -677,8 +668,7 @@ elseif server_name == 'lua_ls' then
         opts = {},
     },
 
-    -- ==================== ДОПОЛНИТЕЛЬНЫЕ ПЛАГИНЫ ====================
-    -- Подсветка всех вхождений слова под курсором
+    -- Additional plugins
     {
         'RRethy/vim-illuminate',
         config = function()
@@ -692,7 +682,6 @@ elseif server_name == 'lua_ls' then
         end
     },
 
-    -- Разноцветные скобки
     {
         'HiPhish/rainbow-delimiters.nvim',
         dependencies = { 'nvim-treesitter/nvim-treesitter' },
@@ -713,7 +702,7 @@ elseif server_name == 'lua_ls' then
 }, {})
 
 ------------------------------------------------------------------------------
--- 4. ПОЛЬЗОВАТЕЛЬСКИЕ КОМАНДЫ
+-- 4. USER COMMANDS
 ------------------------------------------------------------------------------
 vim.api.nvim_create_user_command('SpacesDoubleToQuadruple', '%s/ \\{2\\}/		/g', {})
 vim.api.nvim_create_user_command('SpacesDoubleToTabs', '%s/ \\{2\\}/\\t/g', {})
@@ -732,96 +721,33 @@ vim.api.nvim_create_user_command('ReopenCP1251', 'e ++enc=cp1251', {})
 vim.api.nvim_create_user_command('ClipboardCurrBuffer', 'write ! wl-copy', {})
 
 ------------------------------------------------------------------------------
--- 5. Configs for languages
+-- 5. ADDITIONAL SETTINGS
 ------------------------------------------------------------------------------
-require('mason-lspconfig').setup({
-    ensure_installed = {
-        'clangd', 'pyright', 'lua_ls', 'sqls',
-        'rust_analyzer', 'ts_ls', 'html', 'cssls', 'jdtls', 'asm_lsp', 'jsonls'
-    },
-    automatic_installation = true,
-    handlers = {
-        -- общий обработчик
-        function(server_name)
-            local opts = { capabilities = require('cmp_nvim_lsp').default_capabilities() }
-            if server_name == 'clangd' then
-                opts.cmd = { 'clangd', '--background-index', '--clang-tidy',
-                             '--header-insertion=never', '--fallback-style=llvm',
-                             '--query-driver=/usr/bin/g++' }
-            elseif server_name == 'lua_ls' then
-                local cc_defs = vim.fn.expand("~/repositories/Sumneko/CC-Tweaked")
-                opts.settings = {
-                    Lua = {
-                        runtime = { version = 'LuaJIT' },
-                        diagnostics = { globals = { "vim" } },
-                        workspace = {
-                            library = {
-                                vim.api.nvim_get_runtime_file("", true),
-                                cc_defs,
-                            },
-                            ignoreDir = { ".git", "build" },
-                        },
-                        telemetry = { enable = false },
-                    }
-                }
-            elseif server_name == 'sqls' then
-                opts.settings = {
-                    sqls = {
-                        connections = {
-                            { driver = 'mysql', dataSourceName = ':memory:' }
-                        }
-                    }
-                }
-            elseif server_name == 'pyright' then
-                -- настройки при необходимости
-            end
-            require('lspconfig')[server_name].setup(opts)
-        end,
-
-        -- специальный обработчик для rust_analyzer
-        ['rust_analyzer'] = function()
-            local opts = {
-                capabilities = require('cmp_nvim_lsp').default_capabilities(),
-                settings = {
-                    ['rust-analyzer'] = {
-                        checkOnSave = { command = "clippy" },
-                        diagnostics = { enable = true },
-                        rustfmt = { overrideCommand = { "rustfmt", "--edition", "2021" } },
-                    },
-                },
-            }
-            require('lspconfig').rust_analyzer.setup(opts)
-        end,
-
-        -- можно добавить обработчики для ts_ls, html и т.д.
-    },
-})
-
--- Принудительно табы
+-- Force tabs
 vim.api.nvim_create_autocmd('FileType', {
     pattern = '*',
     callback = function() vim.bo.expandtab = false end,
 })
 
--- Подсветка при yank
+-- Highlight on yank
 vim.api.nvim_create_autocmd('TextYankPost', {
     callback = function() vim.highlight.on_yank() end,
 })
 
--- Быстрые исправления
+-- Quick fixes
 vim.keymap.set('n', '<leader>qf', function()
     vim.lsp.buf.code_action({ context = { only = { 'quickfix' } }, apply = false })
 end, { desc = 'Show quick fixes for current line' })
 
 ------------------------------------------------------------------------------
--- 5. НАСТРОЙКА ПОДСВЕТКИ (УНИКАЛЬНЫЕ ЦВЕТА ДЛЯ ВСЕХ ЯЗЫКОВ)
+-- 6. HIGHLIGHTING SETUP (Treesitter)
 ------------------------------------------------------------------------------
 vim.opt.syntax = 'off'
 vim.cmd('syntax off')
 
 vim.api.nvim_create_autocmd('FileType', {
     pattern = { 'c', 'cpp', 'python', 'lua', 'sql', 'nasm',
-                'rust', 'asm', 'javascript', 'typescript', 'html', 'css', 'java', 'kotlin', 'cmake', 'json' },
+                'rust', 'asm', 'javascript', 'typescript', 'html', 'css', 'java', 'kotlin', 'cmake' },
     callback = function()
         local buf = vim.api.nvim_get_current_buf()
         local ft = vim.bo.filetype
@@ -836,7 +762,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     callback = function()
         local hl = vim.api.nvim_set_hl
 
-        -- ===== Базовые группы для всех языков (Treesitter) =====
+        -- Base Treesitter groups
         hl(0, '@type.builtin',          { fg = '#4ec9b0' })
         hl(0, '@type',                   { fg = '#3cb371' })
         hl(0, '@class',                  { fg = '#ffd700' })
@@ -887,7 +813,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
         hl(0, 'RainbowDelimiterViolet',  { fg = '#8a2be2' })
         hl(0, 'RainbowDelimiterCyan',    { fg = '#0077bb' })
 
-        -- ===== Дополнительные группы для SQL =====
+        -- SQL
         hl(0, '@keyword.sql',            { fg = '#ba55d3', bold = true })
         hl(0, '@function.sql',           { fg = '#ff6347' })
         hl(0, '@type.sql',               { fg = '#3cb371' })
@@ -897,22 +823,23 @@ vim.api.nvim_create_autocmd('ColorScheme', {
         hl(0, '@number.sql',             { fg = '#7cfc00' })
         hl(0, '@comment.sql',            { fg = '#90ee90', italic = true })
 
-		-- ===== Дополнительные группы для lua =====
-		hl(0, '@comment.lua',				{ fg = '#90ee90', italic = true })
+        -- Lua
+        hl(0, '@comment.lua',            { fg = '#90ee90', italic = true })
 
-		-- ===== Additional group for Rust =========
-		hl(0, '@keyword.rust',            { fg = '#ff7f50' })
-		hl(0, '@function.javascript',     { fg = '#adff2f' })
-		hl(0, '@tag.html',                { fg = '#87ceeb' })
+        -- Rust / JS / HTML
+        hl(0, '@keyword.rust',           { fg = '#ff7f50' })
+        hl(0, '@function.javascript',    { fg = '#adff2f' })
+        hl(0, '@tag.html',               { fg = '#87ceeb' })
 
-		-- ===== Additional group for NASM =========
-		hl(0, '@keyword.nasm',      { fg = '#ff7f50', bold = true })
-		hl(0, '@function.nasm',     { fg = '#adff2f' })
-		hl(0, '@label.nasm',        { fg = '#9370db' })
-		hl(0, '@comment.nasm',      { fg = '#90ee90', italic = true })
+        -- NASM
+        hl(0, '@keyword.nasm',           { fg = '#ff7f50', bold = true })
+        hl(0, '@function.nasm',          { fg = '#adff2f' })
+        hl(0, '@label.nasm',             { fg = '#9370db' })
+        hl(0, '@comment.nasm',           { fg = '#90ee90', italic = true })
     end,
 })
 
 vim.cmd('doautocmd ColorScheme')
 
-print("Neovim config loaded: C/C++, Python, Lua, SQL – LSP, отладка, подсветка")
+print("Neovim config loaded: C/C++, Python, Lua, SQL – LSP, debugging, highlighting")
+
