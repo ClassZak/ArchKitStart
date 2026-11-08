@@ -109,7 +109,7 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 -- JSON
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
    pattern = { '*.json', },
-   command = 'set filetype=kotlin',
+   command = 'set filetype=json',
 })
 vim.opt.backup = false
 vim.opt.writebackup = false
@@ -176,7 +176,7 @@ require('lazy').setup({
         opts = {
 			ensure_installed = {
 				'c', 'cpp', 'lua', 'vim', 'vimdoc', 'query',
-				'python', 'sql', 'markdown', 'jsonls', 'yaml',
+				'python', 'sql', 'markdown', 'json', 'yaml',
 				'asm', 'nasm',
 				'rust', 'javascript', 'typescript', 'html', 'css', 'java', 'kotlin', 'cmake'
 			},
@@ -211,7 +211,7 @@ require('lazy').setup({
 					'cssls',
 					'jdtls',
 					'asm_lsp',
-					'json'
+					'jsonls'
                 },
                 automatic_installation = true,
                 handlers = {
@@ -526,6 +526,16 @@ elseif server_name == 'lua_ls' then
                     stopOnEntry = false,
                     runInTerminal = false,
                 },
+				{
+					name = "🔗 Подключиться к процессу (codelldb)",
+					type = "codelldb",
+					request = "attach",
+					pid = require("dap.utils").pick_process,
+					cwd = "${workspaceFolder}",
+					processHandle = {
+						SIGINT = { pass = true, stop = false, notify = true },
+					},
+				},
                 {
                     name = "🔨 Запустить цель CMake (из build/)",
                     type = "codelldb",
@@ -727,7 +737,7 @@ vim.api.nvim_create_user_command('ClipboardCurrBuffer', 'write ! wl-copy', {})
 require('mason-lspconfig').setup({
     ensure_installed = {
         'clangd', 'pyright', 'lua_ls', 'sqls',
-        'rust_analyzer', 'ts_ls', 'html', 'cssls', 'jdtls', 'asm_lsp', 'json'
+        'rust_analyzer', 'ts_ls', 'html', 'cssls', 'jdtls', 'asm_lsp', 'jsonls'
     },
     automatic_installation = true,
     handlers = {
@@ -811,7 +821,7 @@ vim.cmd('syntax off')
 
 vim.api.nvim_create_autocmd('FileType', {
     pattern = { 'c', 'cpp', 'python', 'lua', 'sql', 'nasm',
-                'rust', 'asm', 'javascript', 'typescript', 'html', 'css', 'java', 'kotlin', 'cmake' },
+                'rust', 'asm', 'javascript', 'typescript', 'html', 'css', 'java', 'kotlin', 'cmake', 'json' },
     callback = function()
         local buf = vim.api.nvim_get_current_buf()
         local ft = vim.bo.filetype
