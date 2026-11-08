@@ -158,5 +158,6 @@ alias duls='du -BM --max-depth=1 2>/dev/null | sort -n'
 alias shutdown='sudo pkill -15 chrome ; sudo pkill -15 chromium ; shutdown'
 alias reboot='sudo pkill -15 chrome ; sudo pkill -15 chromium ; reboot'
 alias kill_chrome='sudo pkill -15 chrome ; sudo pkill -15 chromium'
+alias fix_touchpad='sudo modprobe -r i2c_hid_acpi && sleep 1 && sudo modprobe i2c_hid_acpi'
 # Load Angular CLI autocompletion.
 #source <(ng completion script)
