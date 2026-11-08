@@ -336,11 +336,15 @@ command! SpacesDoubleToQuadruple %s/ \{2\}/\ \ \ \ /g
 command! SpacesDoubleToTabs %s/ \{2\}/\t/g
 " 3 Command for handle calling space replacing into tabs
 command! SpacesToTabs %s/ \{4\}/\t/g
-" 4 Command fot handle calling replacing spaces at the lines beginning into tabs
+" 4 Command for handle calling replacing spaces at the lines beginning into tabs
 command! SpacesToTabsFirst %s/^\ \{4\}/\t/g
-" 5 Force using tabs for all files
+" 5 Command for handle calling tab replacing into 2 spaces
+command! TabsTo2Spaces %s/\t/\ \ /g
+" 6 Command for handle calling tab replacing into 4 spaces
+command! TabsTo4Spaces %s/\t/\ \ \ \ /g
+" 7 Force using tabs for all files
 autocmd FileType * set noexpandtab
-" 6 Saving without \n
+" 8 Saving without \n
 function! SaveWithoutEOL()
 	silent! %s/\n$//e
 	let l:save_binary = &binary
@@ -353,9 +357,9 @@ function! SaveWithoutEOL()
 	let &eol = l:save_eol
 endfunction
 command! SaveNoEOL call SaveWithoutEOL()
-" 7 Reopen in cyrilic encoding for Windows
+" 9 Reopen in cyrilic encoding for Windows
 command! ReopenCP1251 e ++enc=cp1251
-" 8 Fake Bearer header
+" 10 Fake Bearer header
 command! FakeAuthBearerHeader %s/Bearer\ \S+/Bearer\ something/g
 
 
