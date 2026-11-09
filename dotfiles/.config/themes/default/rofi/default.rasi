@@ -1,5 +1,5 @@
 configuration {
-    font:                       "JetBrains Mono 9";
+    font:                       "JetBrains Mono 16";
 }
 
 * {
