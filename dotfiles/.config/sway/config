@@ -24,8 +24,7 @@ set $browser2 firefox
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output eDP-1 pos 0 0 res 1920x1080 bg #303030 solid_color
-output HDMI-A-1 pos 1920 0 res 1920x1080 bg #303030 solid_color
+output * bg #303030 solid_color
 client.focused			#55ff55 #337733 #000000 #ffffff
 client.urgent			#55ff55 #604760 #7f7f7f #ffffff
 client.focused_inactive	#668ec0 #334760 #7f7f7f #ffffff
@@ -83,7 +82,7 @@ input type:keyboard {
 	# Start a terminal
 	bindsym $mod+Return exec $term
 	# Start browser
-	bindsym --to-code $mod+Shift+Return exec MESA_LOADER_DRIVER_OVERRIDE=nouveau $browser1 --password-store=basic
+	bindsym --to-code $mod+Shift+Return exec $browser1 --password-store=basic
 	#bindsym $mod+Shift+Return exec $browser1 --disable-gpu --disable-software-rasterizer --password-store=basic
 	bindsym --to-code $mod+Shift+f exec MESA_LOADER_DRIVER_OVERRIDE=nouveau $browser2
 	# rofi
@@ -191,7 +190,7 @@ input type:keyboard {
 	# Show the next scratchpad window or hide the focused scratchpad window.
 	# If there are multiple scratchpad windows, this command cycles through them.
 	bindsym --to-code $mod+minus scratchpad show
-
+#
 # Resizing containers:
 #
 mode "resize" {
@@ -263,6 +262,14 @@ exec export __GLX_VENDOR_LIBRARY_NAME=nvidia
 exec export WLR_NO_HARDWARE_CURSORS=1
 exec export XDG_CURRENT_DESKTOP=sway
 exec export GTK_THEME=Adwaita:dark
+
+# Prevent Sway from crashing due to hardware cursor mismatches
+exec export WLR_NO_HARDWARE_CURSORS=1
+
+# Tell apps to use Wayland
+exec export XDG_SESSION_TYPE=wayland
+exec export GDK_BACKEND=wayland
+
 #eval $(/usr/bin/gnome-keyring-daemon --start --components=secrets)
 #exec_always multibg-wayland --gpu $HOME/wallpapers/ ; systemctl --user import-environment WAYLAND_DISPLAY ; $HOME/\.local/bin/wlsunset-on.sh
 exec_always multibg-wayland --gpu $HOME/wallpapers/ &
@@ -284,13 +291,14 @@ for_window [title="Deleting"] floating enable
 for_window [class="Matplotlib"] floating enable
 for_window [title="Figure*"] floating enable
 for_window [class="X-AIR-Edit"] floating enable
-for_window [title="."] title_format "<b>%title</b> <span foreground='#F53C3C'><i>%app_id</i></span>"
+for_window [title="."] title_format "<b>%title</b> <span foreground='#F88'><b><i>%app_id</i></b></span>"
 for_window [title="rufus"] floating enable
 for_window [title="Bluetooth Devices"] floating enable
-
+for_window [title="Running Devices*"] floating enable
+for_window [title="Select*"] floating enable
 
 ## Transparent Windows
-set $trans 0.91
+set $trans 0.70
 set $alphamark "a"
 for_window [con_mark=$alphamark] opacity set $trans
 bindsym --to-code $mod+Shift+a \
