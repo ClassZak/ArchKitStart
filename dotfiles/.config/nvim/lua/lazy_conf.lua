@@ -300,6 +300,14 @@ require('lazy').setup({
                 executable = { command = 'lua', args = { lua_debugger_path } },
             }
 
+
+			local function prompt_args()
+				local raw = vim.fn.input("Command-line arguments (empty for none): ")
+				if raw == nil or raw == "" then
+					return {}
+				end
+				return vim.split(raw, "%s+", { trimempty = true })
+			end
             -- Helper compilation function (as in original)
             local function compile_current_file_cpp()
                 local filename = vim.fn.expand('%:t')
@@ -367,6 +375,7 @@ require('lazy').setup({
                     type = "codelldb",
                     request = "launch",
                     program = function() return compile_current_file_cpp() end,
+					args = prompt_args,
                     cwd = "${workspaceFolder}",
                     stopOnEntry = false,
                     runInTerminal = false,
@@ -379,6 +388,7 @@ require('lazy').setup({
                         local path = vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/")
                         return path
                     end,
+					args = prompt_args,
                     cwd = "${workspaceFolder}",
                     stopOnEntry = false,
                     runInTerminal = false,
@@ -410,6 +420,7 @@ require('lazy').setup({
                         end
                         return prog
                     end,
+					args = prompt_args,
                     cwd = "${workspaceFolder}",
                     stopOnEntry = false,
                     runInTerminal = false,
