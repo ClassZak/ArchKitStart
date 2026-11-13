@@ -143,9 +143,9 @@
 	},
 	"memory": {
 		"interval": 1,
-		"format": "{used}/{total}Gib ({percentage}%) ",
-		"format-alt": "{used}/{total}Gib ({percentage}%) sw {swapUsed}/{swapTotal}Gib ({swapPercentage}%) ",
-		"tooltip-format": "{used}/{total}Gib ({percentage}%)\nsw {swapUsed}/{swapTotal}Gib ({swapPercentage}%)"
+		"format": "{used:.2f}/{total:.2f}Gib ({percentage}%) ",
+		"format-alt": "{used:.2f}/{total:.2f}Gib ({percentage}%) sw {swapUsed:.2f}/{swapTotal:.2f}Gib ({swapPercentage}%) ",
+		"tooltip-format": "{used:.2f}/{total:.2f}Gib ({percentage}%)\nsw {swapUsed:.2f}/{swapTotal:.2f}Gib ({swapPercentage}%)"
 	},
 	"temperature": {
 		// "thermal-zone": 2,
