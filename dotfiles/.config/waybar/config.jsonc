@@ -19,9 +19,7 @@
 		"memory",
 		"tray",
 		"custom/wlsunset",
-		"custom/bluetooth",
 		"temperature",
-		"backlight",
 		"battery",
 		"battery#bat2",
 		"pulseaudio",
@@ -143,9 +141,9 @@
 	},
 	"memory": {
 		"interval": 1,
-		"format": "{used}/{total}Gib ({percentage}%) ",
-		"format-alt": "{used}/{total}Gib ({percentage}%) sw {swapUsed}/{swapTotal}Gib ({swapPercentage}%) ",
-		"tooltip-format": "{used}/{total}Gib ({percentage}%)\nsw {swapUsed}/{swapTotal}Gib ({swapPercentage}%)"
+		"format": "{used:.2f}/{total:.2f}Gib ({percentage}%) ",
+		"format-alt": "{used:.2f}/{total:.2f}Gib ({percentage}%) sw {swapUsed:.2f}/{swapTotal:.2f}Gib ({swapPercentage}%) ",
+		"tooltip-format": "{used:.2f}/{total:.2f}Gib ({percentage}%)\nsw {swapUsed:.2f}/{swapTotal:.2f}Gib ({swapPercentage}%)"
 	},
 	"temperature": {
 		// "thermal-zone": 2,
@@ -243,7 +241,7 @@
 		"menu": "on-click",
 		"menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu file in resources folder
 		"menu-actions": {
-			"shutdown": "pkill -15 chrome ; pkill -15 chromium ; shutdown",
+			"shutdown": "shutdown 0",
 			"shutdown-c": "shutdown -c",
 			"reboot": "pkill -15 chrome ; pkill -15 chromium ; reboot",
 			"suspend": "systemctl suspend",
