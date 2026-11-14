@@ -197,7 +197,6 @@ require('lazy').setup({
                 sources = cmp.config.sources({
                     { name = 'nvim_lsp' },
                     { name = 'buffer' },
-					{ name = 'nvim_lsp' },
                     { name = 'path' },
                 }),
             }
@@ -209,16 +208,22 @@ require('lazy').setup({
         'nvim-telescope/telescope.nvim',
         dependencies = { 'nvim-lua/plenary.nvim' },
         keys = {
+            { '<leader>co', '<cmd>Telescope lsp_outgoing_calls<CR>', desc = 'Out calls' },
             { '<leader>sf', '<cmd>Telescope find_files<CR>', desc = 'Find files' },
+            { '<leader>sl', '<cmd>Telescope lsp_document_symbols<CR>', desc = 'Symbols list' },
             { '<leader>sg', '<cmd>Telescope live_grep<CR>', desc = 'Grep' },
             { '<leader>sh', '<cmd>Telescope help_tags<CR>', desc = 'Help' },
             { '<leader>ss', '<cmd>Telescope builtin<CR>', desc = 'Telescope' },
             { '<leader>sr', '<cmd>Telescope resume<CR>', desc = 'Resume' },
             { '<leader>s.', '<cmd>Telescope oldfiles<CR>', desc = 'Recent files' },
-            { '<leader><leader>', '<cmd>Telescope buffers<CR>', desc = 'Buffers' },
+            { '<leader>b<leader>', '<cmd>Telescope buffers<CR>', desc = 'Buffers' },
             { '<leader>ca', '<cmd>Telescope lsp_code_actions<CR>', desc = 'Code actions' },
         },
-        config = function() require('telescope').setup() end,
+        config = function() 
+			require('telescope').setup() 
+			local builtin = require('telescope.builtin')
+			vim.keymap.set('n', '<leader><leader>', builtin.keymaps, { desc = 'Search keymaps' })
+		end,
     },
 
     -- Status line
