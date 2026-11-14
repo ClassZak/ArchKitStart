@@ -36,7 +36,7 @@
 #custom-notification,
 #backlight,
 #disk,
-#custom-bluetooth,
+#bluetooth,
 #custom-power,
 #custom-swaync,
 #keyboard-state,
@@ -289,8 +289,7 @@ label:focus {
 #tray {
 	margin-right: 5px;
 	margin-left: 5px;
-	padding: 0 4px;
-
+	padding: 0 8px;
 	background-color: @default-background-color;
 	border-radius: 5px;
 	color: @default-color-light;
@@ -380,10 +379,18 @@ label:focus {
 }
 
 
-#custom-bluetooth {
+#bluetooth {
 	color: @default-color-light;
 	padding: 0 4px;
-	min-width: 12px;
+	background-color: #4C7EA9;
+	min-width: 20px;
+}
+#bluetooth.disabled,
+#bluetooth.off {
+	background-color: #3C5A45;
+}
+#bluetooth.connected {
+	background-color: #98fd52;
 }
 
 
@@ -417,7 +424,7 @@ label:focus {
 #custom-power{
 	background-color: crimson;
 	color: whitesmoke;
-	min-width: 12px;
+	min-width: 16px;
 }
 
 
